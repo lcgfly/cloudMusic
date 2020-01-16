@@ -1,0 +1,9 @@
+
+.adapter(@index) when (@index>0){
+    @media (min-width:extract(@deviceList,@index)) {
+        html{
+            font-size: @baseFontSize/@psdWidth*extract(@deviceList,@index);
+        }
+    }
+    .adapter(@index - 1);
+}

@@ -5,6 +5,10 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
+//全局样式
+import "./assets/css/deviceAdapter/index.less";
+import "./assets/css/reset.less";
+
 new Vue({
   router,
   store,
