@@ -59,7 +59,7 @@ const special = {
   'fm_trash.js': '/fm_trash',
   'personal_fm.js': '/personal_fm'
 }
-
+//根据请求的api地址转发给对应的接口(写的很妙)
 fs.readdirSync(path.join(__dirname, 'module')).reverse().forEach(file => {
   if(!file.endsWith('.js')) return
   let route = (file in special) ? special[file] : '/' + file.replace(/\.js$/i, '').replace(/_/g, '/')
