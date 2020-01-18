@@ -31,8 +31,12 @@ const chooseUserAgent = ua => {
   else return ua
   return userAgentList[index]
 }
-
-const createRequest = (method, url, data, options) => {
+/** 
+ * createRequest对应每个详细接口的request参数，
+ * 这样就能拿到发送请求的各个参数,method、url...
+ * 
+*/
+const createRequest = (method, url, data, options) => {   
   return new Promise((resolve, reject) => {
     let headers = { 'User-Agent': chooseUserAgent(options.ua) }
     if (method.toUpperCase() === 'POST')
