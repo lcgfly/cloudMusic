@@ -9,9 +9,14 @@ Vue.config.productionTip = false;
 import "./assets/css/deviceAdapter/index.less";
 import "./assets/css/reset.less";
 import "vant/lib/index.css";
+import "swiper/dist/css/swiper.css";
+
+//Swiper
+import VueAwesomeSwiper from "vue-awesome-swiper";
 //vant组件
 import { Tab, Tabs, Button } from "vant";
 
+Vue.use(VueAwesomeSwiper);
 Vue.use(Button);
 Vue.use(Tab).use(Tabs);
 
