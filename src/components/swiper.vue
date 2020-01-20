@@ -11,10 +11,7 @@
 </template>
 <script>
 import Bus from "../util/Bus";
-import one from "./one";
-import two from "./two";
-import three from "./three";
-import four from "./four";
+
 export default {
     data() {
         return {
@@ -26,24 +23,24 @@ export default {
                     slideChange: () => {
                         Bus.$emit(
                             "slideChange",
-                            this.$refs.mySwiper.swiper.activeIndex
+                            this.swiper.activeIndex
                         );
                     }
                 }
             },
             list: [
-                { component: one },
-                { component: two },
-                { component: three },
-                { component: four }
+                { component: "one"},
+                { component: "two" },
+                { component: "three" },
+                { component: "four" }
             ]
         };
     },
-    components: {
-        one,
-        two,
-        three,
-        four
+    components: {   //组件懒加载
+        one:()=>import ("./one"),
+        two:()=>import ("./two"),
+        three:()=>import ("./three"),
+        four:()=>import ("./four")
     },
     computed: {
         swiper() {
