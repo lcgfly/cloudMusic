@@ -1,12 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import welcome from "../components/Welcome.vue"
 import find from "../views/find/find.vue";
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect:"/find"
+    component:welcome
   },
   {
     path:"/my",
