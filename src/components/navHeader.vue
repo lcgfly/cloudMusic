@@ -36,6 +36,7 @@ export default {
         deliverSlideIndex(index) {  //滑动时更新导航栏、路由
             this.currentIndex = index;
             var path = index==0?'/my':index==1?'/find':index==2?'village':index==3?'/video':0;
+            this.$router.push(path);
         },
         init(){ //页面刷新时更新导航栏高亮位置
             this.currentIndex=this.$route.path=='/my'?0:this.$route.path=='/find'?1:this.$route.path=='/village'?
