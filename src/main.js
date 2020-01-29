@@ -14,11 +14,11 @@ import "swiper/dist/css/swiper.css";
 //Swiper
 import VueAwesomeSwiper from "vue-awesome-swiper";
 //vant组件
-import { Tab, Tabs, Button } from "vant";
+import { Icon,Popup } from "vant";
 
 Vue.use(VueAwesomeSwiper);
-Vue.use(Button);
-Vue.use(Tab).use(Tabs);
+Vue.use(Icon);
+Vue.use(Popup);
 
 new Vue({
   router,

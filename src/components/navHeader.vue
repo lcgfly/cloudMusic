@@ -1,6 +1,7 @@
 <template>
     <div>
         <nav class="navheader">
+            <van-icon name="wap-nav" class="menu-nav" size="0.4rem" @click="showPopup"/>
             <ul class="list">
                 <li
                     v-for="(item,index) in navList"
@@ -10,6 +11,7 @@
                 >{{item}}</li>
             </ul>
         </nav>
+        <van-popup v-model="show" position="left" :style="{width:'70vw',height:'100vh'}">内容</van-popup>
     </div>
 </template>
 <script>
@@ -19,7 +21,8 @@ export default {
     data() {
         return {
             navList: ["我的", "发现", "云村", "视频"],
-            currentIndex: 1
+            currentIndex: 1,
+            show:false
         };
     },
     components: {},
@@ -41,23 +44,38 @@ export default {
         init(){ //页面刷新时更新导航栏高亮位置
             this.currentIndex=this.$route.path=='/my'?0:this.$route.path=='/find'?1:this.$route.path=='/village'?
             2:this.$route.path=='/video'?3:0
+        },
+        showPopup(){
+            this.show = true;
         }
     }
 };
 </script>
 <style lang="less" scoped>
-.list {
-    width: 100%;
-    overflow: hidden;
-    li {
-        width: 25%;
-        display: inline-block;
-        text-align: center;
-        height: 48px;
-        line-height: 48px;
-        &.active {
-            border-bottom: 3px solid #dd001b;
+nav.navheader{
+    position: relative;
+    padding: 0 10%;
+    .list {
+        width: 100%;
+        overflow: hidden;
+        li {
+            width: 20%;
+            display: inline-block;
+            text-align: center;
+            height: 48px;
+            line-height: 48px;
+            transition: all 0.15s linear;
+            &.active {
+                font-weight: bold;
+                transform: scale(1.25);
+            }
         }
+    }
+    .menu-nav{
+        position: absolute;
+        top: 50%;
+        left: 30px;
+        transform: translate(0,-50%);
     }
 }
 </style>
