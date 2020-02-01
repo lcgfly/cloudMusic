@@ -1,7 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import welcome from "../components/Welcome.vue"
-import find from "../views/find/find.vue";
+import find from "../views/find";
+import my from "../views/my";
+import village from "../views/village";
+import vlog from "../views/vlog";
+import song from "@/components/song"
 Vue.use(VueRouter);
 
 const routes = [
@@ -11,7 +15,7 @@ const routes = [
   },
   {
     path:"/my",
-    component:find
+    component:my
   },
   {
     path:"/find",      //默认首页
@@ -19,11 +23,15 @@ const routes = [
   },
   {
     path:"/village",
-    component:find
+    component:village
   },
   {
-    path:"/video",
-    component:find
+    path:"/vlog",
+    component:vlog
+  },
+  {
+    path:"/song",
+    component:song
   }
 ];
 

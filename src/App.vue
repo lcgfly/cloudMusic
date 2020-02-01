@@ -1,10 +1,23 @@
 <template>
   <div id="app">
-    <router-view>
-    </router-view>
+    <nav-header></nav-header>
+        <swiper></swiper>
+        <!-- <router-view v-show="false"></router-view> -->
   </div>
 </template>
-
+<script>
+import navHeader from "./components/navHeader";
+import swiper from "./components/swiper";
+export default {
+    data() {
+        return {};
+    },
+    components:{
+        navHeader,
+        swiper
+    }
+}
+</script>
 <style lang="less">
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

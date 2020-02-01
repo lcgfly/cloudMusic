@@ -1,14 +1,12 @@
 <template>
     <div>
-      444  
+        4
     </div>
 </template>
 <script>
 export default {
-   data(){
-       return{
-           
-       }
-   } 
-}
+    data() {
+        return {};
+    }
+};
 </script>

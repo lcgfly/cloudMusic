@@ -17,7 +17,7 @@ export default {
         return {
             swiperOption: {
                 initialSlide: this.$route.path=='/my'?0:this.$route.path=='/find'?1:this.$route.path=='/village'?
-                2:this.$route.path=='/video'?3:0,
+                2:this.$route.path=='/vlog'?3:1,
                 speed: 500,
                 on: {
                     slideChange: () => {
@@ -29,18 +29,18 @@ export default {
                 }
             },
             list: [
-                { component: "one"},
-                { component: "two" },
-                { component: "three" },
-                { component: "four" }
+                { component: "my"},
+                { component: "find" },
+                { component: "village" },
+                { component: "vlog" }
             ]
         };
     },
     components: {   //组件懒加载
-        one:()=>import ("./one"),
-        two:()=>import ("./two"),
-        three:()=>import ("./three"),
-        four:()=>import ("./four")
+        my:()=>import ("../views/my"),
+        find:()=>import ("../views/find"),
+        village:()=>import ("../views/village"),
+        vlog:()=>import ("../views/vlog")
     },
     computed: {
         swiper() {
