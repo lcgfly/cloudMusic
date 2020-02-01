@@ -27,7 +27,7 @@ export default {
     },
     computed:{},
     mounted() {
-        this.$nextTick(this.init);
+        this.init();
         Bus.$on("slideChange", this.deliverSlideIndex);
 
     },
@@ -42,6 +42,7 @@ export default {
             this.$router.push(path);
         },
         init(){ //页面刷新时更新导航栏高亮位置
+        this.$nextTick(()=>{})
             this.currentIndex=this.$route.path=='/my'?0:this.$route.path=='/find'?1:this.$route.path=='/village'?
             2:this.$route.path=='/vlog'?3:0
         },
