@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <nav-header></nav-header>
-        <swiper></swiper>
-        <!-- <router-view v-show="false"></router-view> -->
+    <nav-header v-if="control"></nav-header>
+        <swiper v-if="control"></swiper>
+        <router-view v-if="!control"></router-view>
   </div>
 </template>
 <script>
@@ -15,6 +15,11 @@ export default {
     components:{
         navHeader,
         swiper
+    },
+    computed:{
+      control(){
+        return /(^\/my)|(^\/find)|(^\/village)|(^\/vlog)/.test(this.$route.path);
+      }
     }
 }
 </script>

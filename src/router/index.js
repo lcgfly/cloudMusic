@@ -5,7 +5,6 @@ import find from "../views/find";
 import my from "../views/my";
 import village from "../views/village";
 import vlog from "../views/vlog";
-import song from "@/components/song"
 Vue.use(VueRouter);
 
 const routes = [
@@ -28,10 +27,6 @@ const routes = [
   {
     path:"/vlog",
     component:vlog
-  },
-  {
-    path:"/song",
-    component:song
   }
 ];
 
