@@ -21,11 +21,12 @@ import "swiper/dist/css/swiper.css";
 //Swiper
 import VueAwesomeSwiper from "vue-awesome-swiper";
 //vant组件
-import { Icon,Popup } from "vant";
+import { Icon,Popup,Swipe,SwipeItem } from "vant";
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(Icon);
 Vue.use(Popup);
+Vue.use(Swipe).use(SwipeItem);
 
 new Vue({
   router,

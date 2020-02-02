@@ -1,0 +1,1 @@
+export const banner='/banner?type=1'    //首页轮播图，1 Android 
