@@ -21,7 +21,6 @@ export default {
     methods: {
         init(){
             api.getBanner().then(res=>{
-                console.log(res.data)
                 this.list = res.data.banners;
             })
         }
@@ -34,9 +33,10 @@ export default {
   font-size: 20px;
   line-height: 150px;
   text-align: center;
-  background-color: #39a9ed;
+  padding: 0 20px;
   img{
       width: 100%;
+      border-radius: 15px;
   }
 }
 </style>
