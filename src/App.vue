@@ -18,7 +18,7 @@ export default {
     },
     computed:{
       control(){
-        return /(^\/my)|(^\/find)|(^\/village)|(^\/vlog)/.test(this.$route.path);
+        return /(^\/my$)|(^\/find$)|(^\/village$)|(^\/vlog$)/.test(this.$route.path);
       }
     }
 }

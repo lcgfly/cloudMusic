@@ -11,19 +11,54 @@
                 >{{item}}</li>
             </ul>
         </nav>
-        <van-popup v-model="show" position="left" :style="{width:'70vw',height:'100vh'}">内容</van-popup>
+        <van-popup v-model="show" position="left" :style="{width:'70vw',height:'100vh'}" round>
+            <p class="login-slogan">立即登录，尽享海量高品质音乐</p>
+            <van-button round type="info" color="#dd001b">登录GoGoGo!</van-button>
+            <category :list="category"></category>
+        </van-popup>
     </div>
 </template>
 <script>
 import Bus from "../util/Bus";
+import category from "@/components/category";
 
 export default {
     data() {
         return {
             navList: ["我的", "发现", "云村", "视频"],
             currentIndex: 1,
-            show:false
+            show:false,
+            category:[
+                {
+                    name:'我的消息',
+                    path:'mymessage',
+                    icon:'smile-comment-o',
+                    color:'#F63515'
+                },
+                {
+                    name:'我的好友',
+                    path:'mypartner',
+                    icon:'friends-o',
+                    color:'#F63515'
+                },
+                {
+                    name:'个人主页',
+                    path:'zone',
+                    icon:'wap-home-o',
+                    color:'#F63515'
+                },
+                {
+                    name:'换肤',
+                    path:'skin',
+                    icon:'brush-o',
+                    color:'#F63515'
+                }
+            ]
+
         };
+    },
+    components:{
+        category
     },
     computed:{},
     mounted() {
@@ -79,4 +114,9 @@ nav.navheader{
         transform: translate(0,-50%);
     }
 }
+.login-slogan{
+    font-size: 0.2em;
+    margin: 30px;
+}
+
 </style>

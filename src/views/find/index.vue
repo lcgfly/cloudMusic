@@ -2,19 +2,12 @@
     <div class="find">
         2
         <banner></banner>
-        <div class="category">
-            <div v-for="(item,index) in category" :key="index">
-                <router-link :to="item.path">
-                    <van-icon :name="item.icon" size="0.5rem" color="#fff"/>
-                    <span>{{item.name}}</span>
-                </router-link>
-            </div>
-        </div>
+        <category :list="category"></category>
     </div>
 </template>
 <script>
-import banner from "./components/banner"
-
+import banner from "./components/banner";
+import category from "@/components/category";
 export default {
     data() {
         return {
@@ -22,45 +15,39 @@ export default {
                 {
                     name:'每日推荐',
                     path:'today',
-                    icon:'notes-o'
+                    icon:'notes-o',
+                    color:'#fff'
                 },
                 {
                     name:'歌单',
                     path:'songsheet',
-                    icon:'music-o'
+                    icon:'music-o',
+                    color:'#fff'
                 },
                 {
                     name:'排行榜',
                     path:'top',
-                    icon:'chart-trending-o'
+                    icon:'chart-trending-o',
+                    color:'#fff'
                 },
                 {
                     name:'电台',
                     path:'radio',
-                    icon:'service-o'
+                    icon:'service-o',
+                    color:'#fff'
                 }
             ]
         };
     },
     components:{
-        banner
+        banner,
+        category
     }
 };
 </script>
-<style lang="less" scoped>
-.find .category{
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-around;
-    i{
-        padding: 15px;
-        border-radius: 50%;
+<style lang="less">
+.find .category i{
         background-color: #F63515;
-        filter: drop-shadow(0px 6px 10px black);
-}
-    span{
-        display: block;
-        margin-top: 10px;
-    }
+        filter: drop-shadow(4px 6px 8px #333)
 }
 </style>
