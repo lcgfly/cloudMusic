@@ -1,11 +1,22 @@
 import axios from "axios";
-import {banner} from "./config";
+import { banner, login_phone } from "./config";
 
-export default{  
+export default {
     /**
      * 发现页轮播图
      */
-    getBanner(){
+    getBanner() {
         return axios.get(banner)
+    },
+    /**
+     * 手机号+密码登录
+     * @param {String} phone 手机号
+     * @param {String} pwd 密码
+     */
+    loginByPhone(phone, pwd) {
+        return axios.post(login_phone, {
+            phone: phone,
+            password: pwd
+        })
     }
 }

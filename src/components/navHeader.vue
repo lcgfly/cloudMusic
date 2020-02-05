@@ -13,7 +13,7 @@
         </nav>
         <van-popup v-model="show" position="left" :style="{width:'70vw',height:'100vh'}" round>
             <p class="login-slogan">立即登录，尽享海量高品质音乐</p>
-            <van-button round type="info" color="#dd001b">登录GoGoGo!</van-button>
+            <van-button round type="info" color="#dd001b" to="/login">登录GoGoGo!</van-button>
             <category :list="category"></category>
         </van-popup>
     </div>
