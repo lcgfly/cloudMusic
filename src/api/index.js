@@ -1,5 +1,5 @@
 import axios from "axios";
-import { banner, login_phone } from "./config";
+import { banner, login_phone,logout } from "./config";
 
 export default {
     /**
@@ -18,5 +18,8 @@ export default {
             phone: phone,
             password: pwd
         })
+    },
+    logout(){
+        return axios.get(logout)
     }
 }

@@ -6,7 +6,7 @@ import my from "@/views/my"
 import village from "@/views/village"
 import vlog from "@/views/vlog"
 
-const login = () => import('@/components/login')
+const login = () => import('@/views/login')
 
 Vue.use(VueRouter);
 

@@ -1,0 +1,1 @@
+export const CHECK_LOGIN= 'CHECK_LOGIN' //设置用户登录状态

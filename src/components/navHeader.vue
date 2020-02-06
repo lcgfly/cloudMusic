@@ -12,15 +12,24 @@
             </ul>
         </nav>
         <van-popup v-model="show" position="left" :style="{width:'70vw',height:'100vh'}" round>
-            <p class="login-slogan">立即登录，尽享海量高品质音乐</p>
-            <van-button round type="info" color="#dd001b" to="/login">登录GoGoGo!</van-button>
+            <div class="login-tip" v-if="!isLogin"> 
+                <p class="login-slogan">立即登录，尽享海量高品质音乐</p>
+                <van-button round type="info" color="#dd001b" to="/login">登录GoGoGo!</van-button>
+            </div>
+            <div class="login-user" v-if="isLogin">
+                <img :src="avatarUrl" alt="" class="avatar-user">
+                <span class="nickname">{{nickname}}</span>
+            </div>
             <category :list="category"></category>
+            <van-button class="logout-btn" round type="default" size="large" v-if="isLogin" @click="logout">退出登录</van-button>
         </van-popup>
     </div>
 </template>
 <script>
 import Bus from "../util/Bus";
 import category from "@/components/category";
+import api from "@/api";
+import { format } from 'url';
 
 export default {
     data() {
@@ -53,17 +62,27 @@ export default {
                     icon:'brush-o',
                     color:'#F63515'
                 }
-            ]
+            ],
+            nickname:localStorage.getItem('nickname'),
+            avatarUrl:localStorage.getItem('avatarUrl')
 
         };
     },
     components:{
         category
     },
-    computed:{},
+    computed:{
+        isLogin(){  //防止页面刷新后vuex登录状态丢失
+            if(localStorage.getItem('loginState')==1){
+                this.$store.commit('CHECK_LOGIN',1)
+            }
+            return this.$store.state.LOGIN_STATE;
+        }
+    },
     mounted() {
         this.init();
         Bus.$on("slideChange", this.deliverSlideIndex);
+
 
     },
     methods: {
@@ -83,6 +102,16 @@ export default {
         },
         showPopup(){
             this.show = true;
+        },
+        logout(){   //退出登录
+            api.logout().then((res)=>{
+                if(res.status==200){
+                    this.$store.commit('CHECK_LOGIN',0)
+                    localStorage.removeItem('loginState')
+                   // this.$router.go(0)
+                }
+            })
+            
         }
     }
 };
@@ -114,9 +143,28 @@ nav.navheader{
         transform: translate(0,-50%);
     }
 }
+.login-tip{
+    overflow: hidden;
+}
 .login-slogan{
     font-size: 0.2em;
     margin: 30px;
 }
-
+.login-user{
+    margin: 30px;
+    text-align: left
+}
+.avatar-user{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.nickname{
+    margin-left: 15px;
+}
+.logout-btn{
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+}
 </style>
