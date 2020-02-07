@@ -87,7 +87,7 @@ export default {
     right: 0;
     background: linear-gradient(to right, #e52d27, #b31217);
     .login-input {
-        width: 50vw;
+        width: 70vw;
         margin: 50px auto;
         border-radius: 5px;
     }
