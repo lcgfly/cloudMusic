@@ -74,6 +74,7 @@ export default {
         ...mapMutations([
             "CHECK_LOGIN"
             ])
+              
     }
 };
 </script>
@@ -87,8 +88,8 @@ export default {
     background: linear-gradient(to right, #e52d27, #b31217);
     .login-input {
         width: 50vw;
-        margin: 100px auto;
-        border-radius: 10px;
+        margin: 50px auto;
+        border-radius: 5px;
     }
 }
 </style>

@@ -14,7 +14,7 @@ export default {
             category:[
                 {
                     name:'每日推荐',
-                    path:'today',
+                    path:'daily',
                     icon:'notes-o',
                     color:'#fff'
                 },
@@ -48,6 +48,6 @@ export default {
 <style lang="less">
 .find .category i{
         background-color: #F63515;
-        filter: drop-shadow(4px 6px 8px #333)
+        filter: drop-shadow(2px 3px 4px #333)
 }
 </style>

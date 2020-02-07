@@ -33,10 +33,10 @@ export default {
   font-size: 20px;
   line-height: 150px;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 10px;
   img{
       width: 100%;
-      border-radius: 15px;
+      border-radius: 8px;
   }
 }
 </style>

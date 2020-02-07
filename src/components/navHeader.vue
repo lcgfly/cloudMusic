@@ -127,8 +127,8 @@ nav.navheader{
             width: 20%;
             display: inline-block;
             text-align: center;
-            height: 48px;
-            line-height: 48px;
+            height: 24px;
+            line-height: 24px;
             transition: all 0.15s linear;
             &.active {
                 font-weight: bold;
@@ -139,7 +139,7 @@ nav.navheader{
     .menu-nav{
         position: absolute;
         top: 50%;
-        left: 30px;
+        left: 15px;
         transform: translate(0,-50%);
     }
 }
@@ -148,10 +148,10 @@ nav.navheader{
 }
 .login-slogan{
     font-size: 0.2em;
-    margin: 30px;
+    margin: 15px;
 }
 .login-user{
-    margin: 30px;
+    margin: 15px;
     text-align: left
 }
 .avatar-user{
@@ -160,11 +160,11 @@ nav.navheader{
     border-radius: 50%;
 }
 .nickname{
-    margin-left: 15px;
+    margin-left: 8px;
 }
 .logout-btn{
     position: absolute;
     left: 0;
-    bottom: 10px;
+    bottom: 5px;
 }
 </style>

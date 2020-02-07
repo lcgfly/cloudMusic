@@ -1,5 +1,5 @@
 import axios from "axios";
-import { banner, login_phone,logout } from "./config";
+import { banner, login_phone,logout,daily_recommend } from "./config";
 
 export default {
     /**
@@ -19,7 +19,16 @@ export default {
             password: pwd
         })
     },
+    /**
+     * 退出登录
+     */
     logout(){
         return axios.get(logout)
+    },
+    /**
+     * 获取每日推荐歌曲
+     */
+    DailyRecommendSongs(){
+        return axios.get(daily_recommend)
     }
 }

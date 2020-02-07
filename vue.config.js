@@ -12,6 +12,10 @@ module.exports = {
             '/logout':{
                 target:'http://localhost:3000',
                 changeOrigin:true
+            },
+            '/recommend':{
+                target:'http://localhost:3000',
+                changeOrigin:true
             }
         }
     },

@@ -27,19 +27,19 @@ export default {
 </script>
 <style lang="less">
  .category{
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     justify-content: space-around;
     i{
-        padding: 15px;
+        padding: 8px;
         border-radius: 50%;
         // background-color: #F63515;
         // filter: drop-shadow(4px 6px 8px #333);
 }
     span{
         display: block;
-        margin-top: 10px;
-        font-size: 24px;
+        margin-top: 5px;
+        font-size: 12px;
     }
 }
 </style>

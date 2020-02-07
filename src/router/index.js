@@ -7,6 +7,7 @@ import village from "@/views/village"
 import vlog from "@/views/vlog"
 
 const login = () => import('@/views/login')
+const daily = () => import('@/views/daily')
 
 Vue.use(VueRouter);
 
@@ -34,11 +35,14 @@ const routes = [
   {
     path: "/login",
     component: login
+  },
+  {
+    path: "/daily",
+    component:daily
   }
 ];
 
 const router = new VueRouter({
   routes
 });
-
 export default router;
