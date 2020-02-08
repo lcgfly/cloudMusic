@@ -56,7 +56,6 @@ export default {
             this.errorMessage = "";
             this.loading = true;
             api.loginByPhone(this.value, this.password).then(res => {
-                console.log(res)
                 if (res.data.code == 200) {
                     localStorage.setItem('avatarUrl',res.data.profile.avatarUrl)    //登录成功，本地存储用户名，用户头像，登录状态
                     localStorage.setItem('nickname',res.data.profile.nickname)
