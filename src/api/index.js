@@ -1,5 +1,11 @@
 import axios from "axios";
-import { banner, login_phone,logout,daily_recommend } from "./config";
+import {
+    banner,
+    login_phone,
+    logout,
+    daily_recommend,
+    login_status
+} from "./config";
 
 export default {
     /**
@@ -22,13 +28,19 @@ export default {
     /**
      * 退出登录
      */
-    logout(){
+    logout() {
         return axios.get(logout)
     },
     /**
      * 获取每日推荐歌曲
      */
-    DailyRecommendSongs(){
+    DailyRecommendSongs() {
         return axios.get(daily_recommend)
+    },
+    /**
+     * 获取登录状态
+     */
+    getLoginStatus() {
+        return axios.get(login_status)
     }
 }
