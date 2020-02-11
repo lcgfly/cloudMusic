@@ -4,7 +4,9 @@ import {
     login_phone,
     logout,
     daily_recommend,
-    login_status
+    login_status,
+    lyric,
+    song_url
 } from "./config";
 
 export default {
@@ -42,5 +44,27 @@ export default {
      */
     getLoginStatus() {
         return axios.get(login_status)
+    },
+    /**
+     * 获取歌词
+     * @param {String} id 歌曲id
+     */
+    getLyric(id) {
+        return axios.get(lyric, {
+            params: {
+                id: id
+            }
+        })
+    },
+    /**
+     * 获取歌曲url
+     * @param {String} id 歌曲id
+     */
+    getSongUrl(id){
+        return axios.get(song_url,{
+            params:{
+                id:id
+            }
+        })
     }
 }

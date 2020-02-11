@@ -16,7 +16,16 @@ module.exports = {
             '/recommend':{
                 target:'http://localhost:3000',
                 changeOrigin:true
+            },
+            '/lyric':{
+                target:'http://localhost:3000',
+                changeOrigin:true
+            },
+            '/song':{
+                target:'http://localhost:3000',
+                changeOrigin:true
             }
+
         }
     },
     lintOnSave: false
