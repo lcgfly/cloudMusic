@@ -9,7 +9,7 @@
                 <span>播放全部</span>
             </div>
             <van-list ref="list" :finished="true" finished-text="真的一首也没有了😜">
-                <div class="song-block" v-for="(item,index) in songLists" :key="index" @click="play(item.id)">
+                <div class="song-block" v-for="(item,index) in songLists" :key="index" @click="play()">
                     <img :src="item.album.picUrl" alt />
                     <div class="song-brief-info">
                         <p class="van-ellipsis">{{item.name}} {{item.alias?item.alias[0]:''}}</p>
@@ -57,7 +57,7 @@ export default {
             }
         },
         play(id){
-            this.$router.push({name:'play',params:{id:id}})
+            
         }
     }
 };

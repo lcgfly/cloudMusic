@@ -1,10 +1,11 @@
 <template>
-    <div class="audioPage">
-        <div class="bg">
-            <navbar></navbar>
+    <div class="audio-page">
+        <div class="bg" v-show="fullScreen">
+            <navbar @mini="mini"></navbar>
             <lyric-view :lyricArray="lyricArray" :lyricIndex="lyricIndex"></lyric-view>
             <controller></controller>
         </div>
+        <mini v-show="!fullScreen" @toFullScreen="toFullScreen"></mini>
         <audio ref="audio" :src="audioSrc" autoplay muted="muted"></audio>
     </div>
 </template>
@@ -14,26 +15,29 @@ import api from "@/api";
 import navbar from "./components/navbar";
 import controller from "./components/controller";
 import lyric from "./components/lyric";
+import mini from "./components/mini"
 export default {
     data() {
         return {
             audioSrc: "",
             lyricArray: [],
             lyricIndex: -1,
+            fullScreen:true,
             id: ""
         };
     },
     components: {
         navbar,
         controller,
-        lyricView: lyric
+        lyricView: lyric,
+        mini
     },
     created() {
         this.id = this.$route.params.id;
     },
     mounted() {
-        this.getLyric();
-        this.getSongUrl(this.id);
+       // this.getLyric();
+        //this.getSongUrl(this.id);
     },
     methods: {
         getLyric() {
@@ -100,14 +104,25 @@ export default {
                     return i;
                 }
             }
+        },
+        mini(){ //迷你播放器
+            this.fullScreen = false
+        },
+        toFullScreen(){ //全屏播放模式
+            this.fullScreen = true
         }
     }
 };
 </script>
 
 <style lang="less">
-div.bg {
-    width: 100vw;
-    height: 100vh;
+.audio-page {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    div.bg {
+        width: 100vw;
+        height: 100vh;
+    }
 }
 </style>

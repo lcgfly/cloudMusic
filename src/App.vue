@@ -3,23 +3,31 @@
     <nav-header v-if="control"></nav-header>
         <swiper v-if="control"></swiper>
         <router-view v-if="!control"></router-view>
+        <!-- 播放组件 -->
+        <player></player>
   </div>
 </template>
 <script>
 import navHeader from "./components/navHeader";
 import swiper from "./components/swiper";
+import player from "@/views/play";
+import {mapState,mapGetters} from "vuex";
 export default {
     data() {
         return {};
     },
     components:{
         navHeader,
-        swiper
+        swiper,
+        player
     },
     computed:{
       control(){
         return /(^\/my$)|(^\/find$)|(^\/village$)|(^\/vlog$)/.test(this.$route.path);
-      }
+      },
+      ...mapGetters([
+            'isAudioListEmpty'
+        ])
     }
 }
 </script>

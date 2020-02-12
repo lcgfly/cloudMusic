@@ -41,12 +41,12 @@ const routes = [
     name:'daily',
     path: "/daily",
     component: daily
-  },
-  {
-    name:'play',
-    path: '/play/:id',
-    component: play
   }
+  // {
+  //   name:'play',
+  //   path: '/play/:id',
+  //   component: play
+  // }
 ];
 
 const router = new VueRouter({
