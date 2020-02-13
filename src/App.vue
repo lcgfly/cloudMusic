@@ -4,7 +4,7 @@
         <swiper v-if="control"></swiper>
         <router-view v-if="!control"></router-view>
         <!-- 播放组件 -->
-        <player></player>
+        <player v-show="!AUDIOLIST_EMPTY"></player>
   </div>
 </template>
 <script>
@@ -26,7 +26,7 @@ export default {
         return /(^\/my$)|(^\/find$)|(^\/village$)|(^\/vlog$)/.test(this.$route.path);
       },
       ...mapGetters([
-            'isAudioListEmpty'
+            'AUDIOLIST_EMPTY'
         ])
     }
 }

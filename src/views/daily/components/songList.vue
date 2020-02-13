@@ -1,15 +1,20 @@
 <template>
     <div class="song-list-bg">
         <div class="song-list-back">
-            <van-icon name="arrow-left" size="0.4rem" color="#fff" @click="back"/>
+            <van-icon name="arrow-left" size="0.4rem" color="#fff" @click="back" />
         </div>
         <div class="song-list" :class="{fixed:fixed}">
             <div ref="playall" class="song-list-playall">
                 <van-icon name="play-circle-o" size="0.4rem" />
-                <span>播放全部</span>
+                <span @click="playAll">播放全部</span>
             </div>
             <van-list ref="list" :finished="true" finished-text="真的一首也没有了😜">
-                <div class="song-block" v-for="(item,index) in songLists" :key="index" @click="play()">
+                <div
+                    class="song-block"
+                    v-for="(item,index) in songLists"
+                    :key="index"
+                    @click="play()"
+                >
                     <img :src="item.album.picUrl" alt />
                     <div class="song-brief-info">
                         <p class="van-ellipsis">{{item.name}} {{item.alias?item.alias[0]:''}}</p>
@@ -23,6 +28,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
     data() {
         return {
@@ -46,8 +52,8 @@ export default {
         window.removeEventListener("scroll", this.fix);
     },
     methods: {
-        back(){
-            this.$router.go(-1)
+        back() {
+            this.$router.go(-1);
         },
         fix() {
             if (document.documentElement.scrollTop >= this.space) {
@@ -56,8 +62,19 @@ export default {
                 this.fixed = false;
             }
         },
-        play(id){
-            
+        ...mapMutations([
+            "AUDIOLIST_REPLACE",
+            "SET_AUDIO_INDEX",
+            "AUDIOLIST_CLEAR",
+            "FULLSCREEN_TOGGLE"
+        ]),
+        playAll() {
+            //点击播放全部按钮的策略是每点击一次，就重新播放一次
+            this.AUDIOLIST_CLEAR();
+            //替换当前播放队列
+            this.AUDIOLIST_REPLACE(this.songLists);
+            this.SET_AUDIO_INDEX(0);
+            this.FULLSCREEN_TOGGLE();
         }
     }
 };

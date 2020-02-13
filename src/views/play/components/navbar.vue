@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {mapState,mapGetters} from "vuex";
+import {mapState,mapMutations} from "vuex";
 export default {
     data(){
         return{}
@@ -17,8 +17,9 @@ export default {
     computed:{
     },
     methods:{
+        ...mapMutations(['FULLSCREEN_TOGGLE']),
         back(){
-            this.$emit('mini')
+            this.FULLSCREEN_TOGGLE();
         }
     }
 };

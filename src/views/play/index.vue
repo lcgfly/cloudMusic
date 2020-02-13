@@ -1,29 +1,29 @@
 <template>
     <div class="audio-page">
         <div class="bg" v-show="fullScreen">
-            <navbar @mini="mini"></navbar>
+            <navbar></navbar>
             <lyric-view :lyricArray="lyricArray" :lyricIndex="lyricIndex"></lyric-view>
             <controller></controller>
         </div>
-        <mini v-show="!fullScreen" @toFullScreen="toFullScreen"></mini>
-        <audio ref="audio" :src="audioSrc" autoplay muted="muted"></audio>
+        <mini v-show="!fullScreen"></mini>
+        <audio ref="audio" :src="audioSrc" autoplay muted></audio>
     </div>
 </template>
 
 <script>
 import api from "@/api";
+import { mapState,mapGetters } from "vuex";
 import navbar from "./components/navbar";
 import controller from "./components/controller";
 import lyric from "./components/lyric";
-import mini from "./components/mini"
+import mini from "./components/mini";
 export default {
     data() {
         return {
             audioSrc: "",
             lyricArray: [],
             lyricIndex: -1,
-            fullScreen:true,
-            id: ""
+            id: null
         };
     },
     components: {
@@ -36,8 +36,23 @@ export default {
         this.id = this.$route.params.id;
     },
     mounted() {
-       // this.getLyric();
+        // this.getLyric();
         //this.getSongUrl(this.id);
+    },
+    computed: {
+        ...mapState(['fullScreen']),
+        ...mapGetters({
+            playing: "AUDIO_PLAY_ING"
+        })
+    },
+    watch: {
+        playing: {
+            deep: true,
+            handler: function(val, oldVal) {
+                if (JSON.stringify(val) == "{}") return;
+                
+            }
+        }
     },
     methods: {
         getLyric() {
@@ -104,13 +119,15 @@ export default {
                     return i;
                 }
             }
-        },
-        mini(){ //迷你播放器
-            this.fullScreen = false
-        },
-        toFullScreen(){ //全屏播放模式
-            this.fullScreen = true
         }
+        //mini() {
+        //     //迷你播放器
+        //     this.fullScreen = false;
+        // },
+        // toFullScreen() {
+        //     //全屏播放模式
+        //     this.fullScreen = true;
+        // }
     }
 };
 </script>

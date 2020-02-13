@@ -16,33 +16,31 @@ import songList from "@/views/daily/components/songList";
 export default {
     data() {
         return {
-            list:[]
+            list: []
         };
     },
-    components:{
+    components: {
         songList,
-        requireLogin:()=> import("@/components/requireLogin")
+        requireLogin: () => import("@/components/requireLogin")
     },
-    computed:{
-        isLogin(){
-            return localStorage.getItem('loginState');
+    computed: {
+        isLogin() {
+            return localStorage.getItem("loginState");
         }
     },
-    mounted(){
-        if(this.isLogin){
-            this.getDailySongs()
+    mounted() {
+        if (this.isLogin) {
+            this.getDailySongs();
         }
-        
     },
-    methods:{
-        getDailySongs(){
-            api.DailyRecommendSongs().then((res)=>{
-                var res = res.data
-                console.log(res)
-                if(res.code == 200){
-                    this.list = res.recommend 
+    methods: {
+        getDailySongs() {
+            api.DailyRecommendSongs().then(res => {
+                var res = res.data;
+                if (res.code == 200) {
+                    this.list = res.recommend;
                 }
-            })
+            });
         }
     }
 };
