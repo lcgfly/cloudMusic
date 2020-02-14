@@ -1,6 +1,6 @@
 <template>
     <div class="lyric-wrapper" ref="listwrap">
-        <ul class="lyric-scroll" ref="list" @touchstart="touchStart" @touchmove="touchHandler" @touchend="touchEnd">
+        <ul class="lyric-scroll" ref="list" :style="{transform:`translateY(${spaceY}rem)`}" @touchstart="touchStart" @touchmove="touchHandler" @touchend="touchEnd">
             <li
                 v-for="(item,index) in lyricArray"
                 :key="index"
@@ -17,7 +17,8 @@ export default {
           spaceY:0,
           isTouch:false,
           startY:0,
-          timer:null
+          offset:0,
+          htmlFontSize:0
         };
     },
     props: {
@@ -27,14 +28,18 @@ export default {
     watch:{
       lyricIndex:'listScroll'
     },
+    mounted(){
+      //拿到html的font-size
+      this.htmlFontSize = Number(window.getComputedStyle(document.querySelector('html')).fontSize.replace(/\D/g,''))
+    },
     methods:{
       listScroll(val,oldVal){
         if(val>0){
-          var element = this.$refs.list.children[val-1]
-          var height = element.offsetHeight
-          this.spaceY += height 
-          if(this.isTouch) return false
-          this.$refs.list.style.transform = `translateY(-${this.spaceY}px)`
+          if(this.isTouch) return
+          this.spaceY = -(val*0.96)  //0.96:根节点字体大小/行高
+        }
+        else{
+          this.spaceY = 0;
         }
       },
       touchStart(e){
@@ -42,39 +47,45 @@ export default {
         this.isTouch =true
       },
       touchHandler(e){
+        this.offset = e.touches[0].clientY - this.startY
         //下滑
-        if(e.touches[0].clientY-this.startY>0){
-          this.$refs.list.style.transform = `translateY(-${this.spaceY - e.touches[0].clientY}px)`
+        if(this.offset>0){
+            //边界值判定
+            if((this.spaceY+this.offset/this.htmlFontSize)>0){
+              this.spaceY = 0
+              return
+            }
+          this.spaceY=(this.spaceY+(this.offset/this.htmlFontSize))
         }
         //上滑
         else{
-          this.$refs.list.style.transform = `translateY(-${this.spaceY + e.touches[0].clientY}px)`
+            //边界值判定
+           if(Math.abs(this.spaceY+this.offset/this.htmlFontSize)>(this.lyricArray.length-1)*0.96){ 
+             this.spaceY = -((this.lyricArray.length-1)*0.96)
+             return
+           } 
+           this.spaceY=(this.spaceY+(this.offset/this.htmlFontSize))
         }
       },
       touchEnd(e){
         this.isTouch = false
-        //通过一个简单的防抖函数，在用户停止滑动1秒后，返回到当前歌词处
-        clearTimeout(this.timer)
-        this.timer = setTimeout(() => {
-          this.$refs.listwrap.scrollTop = 0
-        }, 1000);
       }
     }
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .lyric-wrapper {
     width: 100%;
     height: 80vh;
     background-color: #ccc;
-    overflow: scroll;
-    // &::-webkit-scrollbar{
-    //   display: none;
-    // }
+    overflow: hidden;
+    &::-webkit-scrollbar{
+      display: none;
+    }
     .lyric-scroll {
         margin-top: 80%;
-        transition: transform 0.5s linear;
+        transition: transform 0.3s linear;
         li {
             font-size: 16px;
             padding: 15px 0;

@@ -12,7 +12,7 @@
 
 <script>
 import api from "@/api";
-import { mapState,mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import navbar from "./components/navbar";
 import controller from "./components/controller";
 import lyric from "./components/lyric";
@@ -22,8 +22,7 @@ export default {
         return {
             audioSrc: "",
             lyricArray: [],
-            lyricIndex: -1,
-            id: null
+            lyricIndex: -1
         };
     },
     components: {
@@ -32,15 +31,13 @@ export default {
         lyricView: lyric,
         mini
     },
-    created() {
-        this.id = this.$route.params.id;
-    },
+    created() {},
     mounted() {
         // this.getLyric();
         //this.getSongUrl(this.id);
     },
     computed: {
-        ...mapState(['fullScreen']),
+        ...mapState(["fullScreen"]),
         ...mapGetters({
             playing: "AUDIO_PLAY_ING"
         })
@@ -49,14 +46,21 @@ export default {
         playing: {
             deep: true,
             handler: function(val, oldVal) {
+                this.lyricIndex = -1;
+                this.lyricArray = [];
+                this.audioSrc = ''
                 if (JSON.stringify(val) == "{}") return;
-                
+                if (val.id) {
+                    //获取当前歌曲的歌词
+                    this.getLyric(val.id);
+                    //获取当前歌曲的播放Url
+                    this.getSongUrl(val.id);
+                }
             }
         }
     },
     methods: {
-        getLyric() {
-            var id = this.id;
+        getLyric(id) {
             api.getLyric(id).then(res => {
                 var lyric = res.data.lrc.lyric; //[mm:ss.ms]xxxx 格式的字符串
                 this.lyricToObj(lyric);
@@ -94,11 +98,11 @@ export default {
                 res = res.data;
                 if (res.code == 200) {
                     this.audioSrc = res.data[0].url;
-                    this.audioTimeupdate();
+                    this.timeupdateListener();
                 }
             });
         },
-        audioTimeupdate() {
+        timeupdateListener() {
             this.$refs.audio.addEventListener(
                 "timeupdate",
                 this.timeupdateHandler

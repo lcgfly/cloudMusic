@@ -147,7 +147,7 @@ nav.navheader{
     overflow: hidden;
 }
 .login-slogan{
-    font-size: 0.2em;
+    font-size: 12px;
     margin: 15px;
 }
 .login-user{
