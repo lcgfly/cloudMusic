@@ -6,13 +6,13 @@
             <controller></controller>
         </div>
         <mini v-show="!fullScreen"></mini>
-        <audio ref="audio" :src="audioSrc" autoplay muted></audio>
+        <audio ref="audio" :src="audioSrc" autoplay muted @ended="ended"></audio>
     </div>
 </template>
 
 <script>
 import api from "@/api";
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters,mapMutations } from "vuex";
 import navbar from "./components/navbar";
 import controller from "./components/controller";
 import lyric from "./components/lyric";
@@ -32,14 +32,14 @@ export default {
         mini
     },
     created() {},
-    mounted() {
-        // this.getLyric();
-        //this.getSongUrl(this.id);
-    },
+    mounted() {},
     computed: {
-        ...mapState(["fullScreen"]),
+        ...mapState([
+            "fullScreen"
+            ]),
         ...mapGetters({
-            playing: "AUDIO_PLAY_ING"
+            playing: "AUDIO_PLAY_ING",
+            currentIndex:"AUDIO_CURRENT_INDEX"
         })
     },
     watch: {
@@ -48,7 +48,7 @@ export default {
             handler: function(val, oldVal) {
                 this.lyricIndex = -1;
                 this.lyricArray = [];
-                this.audioSrc = ''
+                this.audioSrc = "";
                 if (JSON.stringify(val) == "{}") return;
                 if (val.id) {
                     //获取当前歌曲的歌词
@@ -60,6 +60,9 @@ export default {
         }
     },
     methods: {
+        ...mapMutations([
+            'SET_AUDIO_INDEX'
+        ]),
         getLyric(id) {
             api.getLyric(id).then(res => {
                 var lyric = res.data.lrc.lyric; //[mm:ss.ms]xxxx 格式的字符串
@@ -123,15 +126,13 @@ export default {
                     return i;
                 }
             }
+        },
+        ended(){
+            console.log('播放完了')
+            var index=this.currentIndex
+            this.SET_AUDIO_INDEX(++index)
         }
-        //mini() {
-        //     //迷你播放器
-        //     this.fullScreen = false;
-        // },
-        // toFullScreen() {
-        //     //全屏播放模式
-        //     this.fullScreen = true;
-        // }
+        
     }
 };
 </script>

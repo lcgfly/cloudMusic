@@ -1,6 +1,6 @@
 <template>
     <div class="lyric-wrapper" ref="listwrap">
-        <ul class="lyric-scroll" ref="list" :style="{transform:`translateY(${spaceY}rem)`}" @touchstart="touchStart" @touchmove="touchHandler" @touchend="touchEnd">
+        <ul class="lyric-scroll" ref="list" :style="{transform:`translateY(${spaceY}rem)`}" @touchstart.passive="touchStart" @touchmove.passive="touchHandler" @touchend="touchEnd">
             <li
                 v-for="(item,index) in lyricArray"
                 :key="index"
