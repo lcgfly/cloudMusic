@@ -71,7 +71,6 @@ export default {
         playAll() {
             //点击播放全部按钮的策略是每点击一次，就更新播放队列一次
             this.AUDIOLIST_CLEAR();
-            //this.SET_AUDIO_INDEX(-1);
             //替换当前播放队列
             this.AUDIOLIST_REPLACE(this.songLists);
             //开始播放队列第一首歌

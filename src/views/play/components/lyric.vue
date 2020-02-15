@@ -78,7 +78,7 @@ export default {
 .lyric-wrapper {
     width: 100%;
     height: 80vh;
-    background-color: #ccc;
+    //background-color: #ccc;
     overflow: hidden;
     &::-webkit-scrollbar{
       display: none;

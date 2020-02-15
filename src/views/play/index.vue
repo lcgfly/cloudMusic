@@ -1,18 +1,19 @@
 <template>
     <div class="audio-page">
-        <div class="bg" v-show="fullScreen">
-            <navbar></navbar>
+        <div class="bg" v-show="fullScreen" :style="{backgroundImage:`url(${picUrl})`}"></div>
+        <div class="full" v-show="fullScreen">
+            <navbar :name="name" :artists="artists"></navbar>
             <lyric-view :lyricArray="lyricArray" :lyricIndex="lyricIndex"></lyric-view>
             <controller></controller>
         </div>
-        <mini v-show="!fullScreen"></mini>
+        <mini v-show="!fullScreen" :name="name" :artists="artists" :picUrl="picUrl"></mini>
         <audio ref="audio" :src="audioSrc" autoplay muted @ended="ended"></audio>
     </div>
 </template>
 
 <script>
 import api from "@/api";
-import { mapState, mapGetters,mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 import navbar from "./components/navbar";
 import controller from "./components/controller";
 import lyric from "./components/lyric";
@@ -21,8 +22,11 @@ export default {
     data() {
         return {
             audioSrc: "",
-            lyricArray: [],
-            lyricIndex: -1
+            lyricArray: [], //[{second:xxx,lyric:xxx}...]
+            lyricIndex: -1, //歌词索引
+            artists: [],
+            name: "",
+            picUrl: ""
         };
     },
     components: {
@@ -34,12 +38,10 @@ export default {
     created() {},
     mounted() {},
     computed: {
-        ...mapState([
-            "fullScreen"
-            ]),
+        ...mapState(["fullScreen"]),
         ...mapGetters({
             playing: "AUDIO_PLAY_ING",
-            currentIndex:"AUDIO_CURRENT_INDEX"
+            currentIndex: "AUDIO_CURRENT_INDEX"
         })
     },
     watch: {
@@ -55,14 +57,23 @@ export default {
                     this.getLyric(val.id);
                     //获取当前歌曲的播放Url
                     this.getSongUrl(val.id);
+                    this.artists = val.artists
+                        ? val.artists
+                        : val.ar
+                        ? val.ar
+                        : [];
+                    this.name = val.name;
+                    this.picUrl = val.album
+                        ? val.album.picUrl
+                        : val.al
+                        ? val.al.picUrl
+                        : "";
                 }
             }
         }
     },
     methods: {
-        ...mapMutations([
-            'SET_AUDIO_INDEX'
-        ]),
+        ...mapMutations(["SET_AUDIO_INDEX"]),
         getLyric(id) {
             api.getLyric(id).then(res => {
                 var lyric = res.data.lrc.lyric; //[mm:ss.ms]xxxx 格式的字符串
@@ -113,7 +124,7 @@ export default {
         },
         timeupdateHandler() {
             var audio = this.$refs.audio;
-            var currentSecond = audio.currentTime;
+            var currentSecond = audio.currentTime ? audio.currentTime : 0;
             this.lyricIndex = this.getCurrentIndex(
                 currentSecond,
                 this.lyricArray
@@ -127,12 +138,14 @@ export default {
                 }
             }
         },
-        ended(){
-            console.log('播放完了')
-            var index=this.currentIndex
-            this.SET_AUDIO_INDEX(++index)
+        playNext() {
+            //播放下一首歌曲
+            var index = this.currentIndex;
+            this.SET_AUDIO_INDEX(++index);
+        },
+        ended() {
+            this.playNext();
         }
-        
     }
 };
 </script>
@@ -142,9 +155,31 @@ export default {
     position: fixed;
     top: 0;
     z-index: 999;
-    div.bg {
+    color:hsla(0,0%,100%,.6); 
+    .bg {
         width: 100vw;
         height: 100vh;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        filter: blur(40px);
+        transform: scale(1.75);
+        &::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .full {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 }
 </style>
