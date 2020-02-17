@@ -5,15 +5,16 @@
         <van-slider class="slider" v-model="value" button-size="12px" @drag-start="dragStart" @drag-end="dragEnd" @input="input" @change="change"/>
         <div class="panel">
             <i class="iconfont icon-icon-5"></i>
-            <i class="iconfont icon-icon-2"></i>
-            <i class="iconfont icon-icon-3"></i>
-            <i class="iconfont icon-icon-1"></i>
+            <i class="iconfont icon-icon-2" @click.stop="prev"></i>
+            <i class="iconfont" :class="{'icon-icon-3':playing,'icon-icon-7':!playing}" @click="toggle"></i>
+            <i class="iconfont icon-icon-1" @click.stop="next"></i>
             <i class="iconfont icon-icon-8"></i>
         </div>
     </div>
 </template>
 
 <script>
+import {mapState,mapMutations,mapGetters} from "vuex";
 export default {
     data() {
         return {
@@ -25,6 +26,10 @@ export default {
     props: {
         nowTime: Number,    //当前进度，秒
         duration: Number    //总时间，毫秒
+    },
+    computed:{
+        ...mapState(['playing','audioList']),
+        ...mapGetters(['AUDIO_CURRENT_INDEX'])
     },
     watch: {
         nowTime(val) {
@@ -46,6 +51,37 @@ export default {
         },
         change(value){
             this.$emit('dragChange',value)
+        },
+        ...mapMutations([
+            'PLAYING_TOGGLE',
+            'SET_AUDIO_INDEX'
+            ]),
+        toggle(){
+            //控制播放/暂停
+            this.PLAYING_TOGGLE();
+            this.$emit('toggle')
+        },
+        prev(){
+            //上一首歌
+            if(!this.playing) this.PLAYING_TOGGLE()
+            var length = this.audioList.length
+            var index = this.AUDIO_CURRENT_INDEX
+            if(index-1<0){
+                this.SET_AUDIO_INDEX(length-1)
+                return
+            }
+            this.SET_AUDIO_INDEX(--index)
+        },
+        next(){
+            //下一首歌
+            if(!this.playing) this.PLAYING_TOGGLE()
+            var length = this.audioList.length
+            var index = this.AUDIO_CURRENT_INDEX
+            if(index+1>=length){
+                this.SET_AUDIO_INDEX(0)
+                return
+            }
+            this.SET_AUDIO_INDEX(++index)
         }
     },
     filters: {

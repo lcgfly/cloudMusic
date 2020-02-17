@@ -3,7 +3,8 @@ import {
     AUDIOLIST_REPLACE,
     SET_AUDIO_INDEX,
     AUDIOLIST_CLEAR,
-    FULLSCREEN_TOGGLE
+    FULLSCREEN_TOGGLE,
+    PLAYING_TOGGLE
 } from "./mutation-types";
 
 export default {
@@ -37,5 +38,8 @@ export default {
      */
     [FULLSCREEN_TOGGLE](state){
         state.fullScreen = !state.fullScreen
+    },
+    [PLAYING_TOGGLE](state){
+        state.playing = !state.playing
     }
 }

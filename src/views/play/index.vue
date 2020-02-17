@@ -4,9 +4,9 @@
         <div class="full" v-show="fullScreen">
             <navbar :name="name" :artists="artists"></navbar>
             <lyric-view :lyricArray="lyricArray" :lyricIndex="lyricIndex"></lyric-view>
-            <controller :nowTime="nowTime" :duration="duration" @dragChange="dragChange"></controller>
+            <controller :nowTime="nowTime" :duration="duration" @dragChange="dragChange" @toggle="toggle"></controller>
         </div>
-        <mini v-show="!fullScreen" :name="name" :artists="artists" :picUrl="picUrl"></mini>
+        <mini v-show="!fullScreen" :name="name" :artists="artists" :picUrl="picUrl" @toggle="toggle"></mini>
         <audio ref="audio" :src="audioSrc" autoplay muted @ended="ended"></audio>
     </div>
 </template>
@@ -40,14 +40,14 @@ export default {
     created() {},
     mounted() {},
     computed: {
-        ...mapState(["fullScreen"]),
+        ...mapState(["fullScreen",'playing']),
         ...mapGetters({
-            playing: "AUDIO_PLAY_ING",
+            AUDIO_PLAY_ING: "AUDIO_PLAY_ING",
             currentIndex: "AUDIO_CURRENT_INDEX"
         })
     },
     watch: {
-        playing: {
+        AUDIO_PLAY_ING: {
             deep: true,
             handler: function(val, oldVal) {
                 this.lyricIndex = -1;
@@ -149,11 +149,22 @@ export default {
             this.SET_AUDIO_INDEX(++index);
         },
         ended() {
+            //播放结束时
             this.playNext();
         },
         dragChange(value){
+            //拖动进度条时
             var now = Math.floor(value/100*(this.duration/1000))
             this.$refs.audio.currentTime = now
+        },
+        toggle(){
+            //控制播放/暂停
+            if(this.playing){
+                this.$refs.audio.play()
+            }
+            else{
+                this.$refs.audio.pause()
+            }
         }
     }
 };

@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="mini-right">
-                <i class="iconfont icon-icon-3"></i>
+                <i class="iconfont" :class="{'icon-icon-3':playing,'icon-icon-7':!playing}" @click.stop="toggle"></i>
                 <i class="iconfont icon-icon-8"></i>
             </div>
         </div>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
     data() {
         return {};
@@ -36,12 +36,20 @@ export default {
                 list += "/" + this.artists[i].name;
             }
             return list;
-        }
+        },
+        ...mapState(['playing'])
     },
     methods: {
-        ...mapMutations(["FULLSCREEN_TOGGLE"]),
+        ...mapMutations([
+            "FULLSCREEN_TOGGLE",
+            "PLAYING_TOGGLE"
+            ]),
         toFullScreen() {
             this.FULLSCREEN_TOGGLE();
+        },
+        toggle(){
+            this.PLAYING_TOGGLE()
+            this.$emit('toggle')
         }
     }
 };
