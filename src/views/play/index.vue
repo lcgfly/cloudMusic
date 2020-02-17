@@ -4,7 +4,7 @@
         <div class="full" v-show="fullScreen">
             <navbar :name="name" :artists="artists"></navbar>
             <lyric-view :lyricArray="lyricArray" :lyricIndex="lyricIndex"></lyric-view>
-            <controller></controller>
+            <controller :nowTime="nowTime" :duration="duration" @dragChange="dragChange"></controller>
         </div>
         <mini v-show="!fullScreen" :name="name" :artists="artists" :picUrl="picUrl"></mini>
         <audio ref="audio" :src="audioSrc" autoplay muted @ended="ended"></audio>
@@ -26,7 +26,9 @@ export default {
             lyricIndex: -1, //歌词索引
             artists: [],
             name: "",
-            picUrl: ""
+            picUrl: "",
+            duration:0, 
+            nowTime:0
         };
     },
     components: {
@@ -68,6 +70,7 @@ export default {
                         : val.al
                         ? val.al.picUrl
                         : "";
+                    this.duration = val.duration?val.duration:val.dt?val.dt:0 
                 }
             }
         }
@@ -125,10 +128,12 @@ export default {
         timeupdateHandler() {
             var audio = this.$refs.audio;
             var currentSecond = audio.currentTime ? audio.currentTime : 0;
+            this.nowTime = currentSecond
             this.lyricIndex = this.getCurrentIndex(
                 currentSecond,
                 this.lyricArray
             );
+
         },
         getCurrentIndex(currentSecond, lyricArray) {
             for (let i = lyricArray.length - 1; i >= 0; i--) {
@@ -139,12 +144,16 @@ export default {
             }
         },
         playNext() {
-            //播放下一首歌曲
+            //自动播放下一首歌曲
             var index = this.currentIndex;
             this.SET_AUDIO_INDEX(++index);
         },
         ended() {
             this.playNext();
+        },
+        dragChange(value){
+            var now = Math.floor(value/100*(this.duration/1000))
+            this.$refs.audio.currentTime = now
         }
     }
 };
