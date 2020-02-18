@@ -4,7 +4,8 @@ import {
     SET_AUDIO_INDEX,
     AUDIOLIST_CLEAR,
     FULLSCREEN_TOGGLE,
-    PLAYING_TOGGLE
+    PLAYING_TOGGLE,
+    MODE_TOGGLE
 } from "./mutation-types";
 
 export default {
@@ -24,22 +25,29 @@ export default {
      * 设置当前播放索引
      * @param {Number} index audioList里面的索引
      */
-    [SET_AUDIO_INDEX](state,index){
+    [SET_AUDIO_INDEX](state, index) {
         state.audioIndex = index
     },
     /**
      * 清空当前播放队列
      */
-    [AUDIOLIST_CLEAR](state){
+    [AUDIOLIST_CLEAR](state) {
         state.audioList = []
     },
     /**
      * 切换是否全屏播放
      */
-    [FULLSCREEN_TOGGLE](state){
+    [FULLSCREEN_TOGGLE](state) {
         state.fullScreen = !state.fullScreen
     },
-    [PLAYING_TOGGLE](state){
+    [PLAYING_TOGGLE](state) {
         state.playing = !state.playing
+    },
+    /**
+     * 
+     * @param {Number} type 模式类型0|1|2 
+     */
+    [MODE_TOGGLE](state, type) {
+        state.mode = type
     }
 }

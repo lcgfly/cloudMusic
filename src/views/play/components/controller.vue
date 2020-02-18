@@ -2,11 +2,27 @@
     <div class="controller">
         <span class="now">{{now|nowTimeFn}}</span>
         <span class="total">{{duration|durationFn}}</span>
-        <van-slider class="slider" v-model="value" button-size="12px" @drag-start="dragStart" @drag-end="dragEnd" @input="input" @change="change"/>
+        <van-slider
+            class="slider"
+            v-model="value"
+            button-size="12px"
+            @drag-start="dragStart"
+            @drag-end="dragEnd"
+            @input="input"
+            @change="change"
+        />
         <div class="panel">
-            <i class="iconfont icon-icon-5"></i>
+            <i
+                class="iconfont"
+                :class="{'icon-icon-5': mode==0,'icon-icon-4': mode==1,'icon-icon-6': mode==2}"
+                @click="switchMode"
+            ></i>
             <i class="iconfont icon-icon-2" @click.stop="prev"></i>
-            <i class="iconfont" :class="{'icon-icon-3':playing,'icon-icon-7':!playing}" @click="toggle"></i>
+            <i
+                class="iconfont"
+                :class="{'icon-icon-3':playing,'icon-icon-7':!playing}"
+                @click="toggle"
+            ></i>
             <i class="iconfont icon-icon-1" @click.stop="next"></i>
             <i class="iconfont icon-icon-8"></i>
         </div>
@@ -14,74 +30,94 @@
 </template>
 
 <script>
-import {mapState,mapMutations,mapGetters} from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
     data() {
         return {
-            now:0,
+            now: 0,
             value: 0,
-            drag:false
+            drag: false
         };
     },
     props: {
-        nowTime: Number,    //当前进度，秒
-        duration: Number    //总时间，毫秒
+        nowTime: Number, //当前进度，秒
+        duration: Number //总时间，毫秒
     },
-    computed:{
-        ...mapState(['playing','audioList']),
-        ...mapGetters(['AUDIO_CURRENT_INDEX'])
+    computed: {
+        ...mapState(["playing", "audioList", "mode"]),
+        ...mapGetters(["AUDIO_CURRENT_INDEX"])
     },
     watch: {
         nowTime(val) {
-            if(this.drag) return
-            this.now = val
+            if (this.drag) return;
+            this.now = val;
             val = Math.floor(val);
-            this.value = Number(((val / (this.duration / 1000)) * 100).toFixed(1));
+            this.value = Number(
+                ((val / (this.duration / 1000)) * 100).toFixed(1)
+            );
         }
     },
-    methods:{
-        dragStart(){
-            this.drag = true
+    methods: {
+        dragStart() {
+            this.drag = true;
         },
-        dragEnd(){
-            this.drag = false
+        dragEnd() {
+            this.drag = false;
         },
-        input(value){
-            this.now = Math.floor(value/100*(this.duration/1000))
+        input(value) {
+            this.now = Math.floor((value / 100) * (this.duration / 1000));
         },
-        change(value){
-            this.$emit('dragChange',value)
+        change(value) {
+            this.$emit("dragChange", value);
         },
-        ...mapMutations([
-            'PLAYING_TOGGLE',
-            'SET_AUDIO_INDEX'
-            ]),
-        toggle(){
+        ...mapMutations(["PLAYING_TOGGLE", "SET_AUDIO_INDEX", "MODE_TOGGLE"]),
+        toggle() {
             //控制播放/暂停
             this.PLAYING_TOGGLE();
-            this.$emit('toggle')
+            this.$emit("toggle");
         },
-        prev(){
+        prev() {
             //上一首歌
-            if(!this.playing) this.PLAYING_TOGGLE()
-            var length = this.audioList.length
-            var index = this.AUDIO_CURRENT_INDEX
-            if(index-1<0){
-                this.SET_AUDIO_INDEX(length-1)
-                return
+            if (!this.playing) this.PLAYING_TOGGLE();
+            var length = this.audioList.length;
+            var index = this.AUDIO_CURRENT_INDEX;
+            if (index - 1 < 0) {
+                this.SET_AUDIO_INDEX(length - 1);
+                return;
             }
-            this.SET_AUDIO_INDEX(--index)
+            this.SET_AUDIO_INDEX(--index);
         },
-        next(){
+        next() {
             //下一首歌
-            if(!this.playing) this.PLAYING_TOGGLE()
-            var length = this.audioList.length
-            var index = this.AUDIO_CURRENT_INDEX
-            if(index+1>=length){
-                this.SET_AUDIO_INDEX(0)
-                return
+            if (!this.playing) this.PLAYING_TOGGLE();
+            var length = this.audioList.length;
+            var index = this.AUDIO_CURRENT_INDEX;
+            if (index + 1 >= length) {
+                this.SET_AUDIO_INDEX(0);
+                return;
             }
-            this.SET_AUDIO_INDEX(++index)
+            this.SET_AUDIO_INDEX(++index);
+        },
+        switchMode() {
+            var message = "";
+            switch (this.mode) {
+                case 0:
+                    this.MODE_TOGGLE(1);
+                    message = "单曲循环";
+                    break;
+                case 1:
+                    this.MODE_TOGGLE(2);
+                    message = "随机播放";
+                    break;
+                case 2:
+                    this.MODE_TOGGLE(0);
+                    message = "列表循环";
+                    break;
+            }
+            this.$toast({
+                message: message,
+                position: "bottom"
+            });
         }
     },
     filters: {

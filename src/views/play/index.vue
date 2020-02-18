@@ -40,7 +40,7 @@ export default {
     created() {},
     mounted() {},
     computed: {
-        ...mapState(["fullScreen",'playing']),
+        ...mapState(["fullScreen",'playing','mode']),
         ...mapGetters({
             AUDIO_PLAY_ING: "AUDIO_PLAY_ING",
             currentIndex: "AUDIO_CURRENT_INDEX",
@@ -146,6 +146,16 @@ export default {
                 }
             }
         },
+        ended() {
+            //播放结束时，判断当前播放模式
+            switch(this.mode){
+                case 0: this.playNext();break
+                case 1: this.uni_loop();break
+                case 2: this.random_play();break
+            }
+            
+        },
+        //默认模式，列表循环
         playNext() {
             //当前播放结束时，自动播放下一首歌曲
             var index = this.currentIndex;
@@ -155,9 +165,14 @@ export default {
             }
             this.SET_AUDIO_INDEX(++index);
         },
-        ended() {
-            //播放结束时
-            this.playNext();
+        //单曲循环
+        uni_loop(){
+            this.$refs.audio.play();
+        },
+        //随机播放
+        random_play(){
+            var index = Math.floor((Math.random()*this.AUDIO_LIST_LENGTH))
+            this.SET_AUDIO_INDEX(index)
         },
         dragChange(value){
             //拖动进度条时
