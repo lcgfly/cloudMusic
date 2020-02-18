@@ -68,7 +68,6 @@ export default {
 
         };
     },
-<<<<<<< Updated upstream
     components:{
         category
     },
@@ -80,9 +79,6 @@ export default {
             return this.$store.state.LOGIN_STATE;
         }
     },
-=======
-    computed:{},
->>>>>>> Stashed changes
     mounted() {
         this.init();
         Bus.$on("slideChange", this.deliverSlideIndex);

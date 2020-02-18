@@ -37,17 +37,10 @@ export default {
         };
     },
     components: {   //组件懒加载
-<<<<<<< Updated upstream
         my:()=>import ("../views/my"),
         find:()=>import ("../views/find"),
         village:()=>import ("../views/village"),
         vlog:()=>import ("../views/vlog")
-=======
-        my:()=>import ("../views/my/d"),
-        find:()=>import ("../views/find/d"),
-        village:()=>import ("../views/village/d"),
-        vlog:()=>import ("../views/vlog/d")
->>>>>>> Stashed changes
     },
     computed: {
         swiper() {
