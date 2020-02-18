@@ -43,7 +43,8 @@ export default {
         ...mapState(["fullScreen",'playing']),
         ...mapGetters({
             AUDIO_PLAY_ING: "AUDIO_PLAY_ING",
-            currentIndex: "AUDIO_CURRENT_INDEX"
+            currentIndex: "AUDIO_CURRENT_INDEX",
+            AUDIO_LIST_LENGTH:"AUDIO_LIST_LENGTH"
         })
     },
     watch: {
@@ -76,7 +77,9 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(["SET_AUDIO_INDEX"]),
+        ...mapMutations([
+            "SET_AUDIO_INDEX"
+            ]),
         getLyric(id) {
             api.getLyric(id).then(res => {
                 var lyric = res.data.lrc.lyric; //[mm:ss.ms]xxxx 格式的字符串
@@ -144,8 +147,12 @@ export default {
             }
         },
         playNext() {
-            //自动播放下一首歌曲
+            //当前播放结束时，自动播放下一首歌曲
             var index = this.currentIndex;
+            if(index==this.AUDIO_LIST_LENGTH-1){
+                this.SET_AUDIO_INDEX(0)
+                return
+            }
             this.SET_AUDIO_INDEX(++index);
         },
         ended() {
