@@ -149,11 +149,11 @@ export default {
     width: 100%;
     height: 15vh;
     position: relative;
-    padding-top: 20px;
+    //padding-top: 20px;
     .now,
     .total {
         position: absolute;
-        top: 20px;
+        top: 0;
         transform: translateY(-50%);
         font-size: 12px;
     }

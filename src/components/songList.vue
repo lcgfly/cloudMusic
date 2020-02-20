@@ -1,14 +1,17 @@
 <template>
-    <div class="song-list-bg">
+    <div class="song-list-wrap">
         <div class="song-list-back">
             <van-icon name="arrow-left" size="0.4rem" color="#fff" @click="back" />
         </div>
+        <div class="song-list-bg" :style="{height:height,backgroundImage:`url(${bgUrl})`}"></div>
         <div class="song-list" :class="{fixed:fixed}">
             <div ref="playall" class="song-list-playall">
                 <van-icon name="play-circle-o" size="0.4rem" />
                 <span @click="playAll">播放全部</span>
             </div>
-            <van-list ref="list" :finished="true" finished-text="真的一首也没有了😜">
+            <!-- 显示每一行歌曲信息 -->
+            <slot></slot>
+            <!-- <van-list ref="list" :finished="true" finished-text="真的一首也没有了😜">
                 <div
                     class="song-block"
                     v-for="(item,index) in songLists"
@@ -22,25 +25,32 @@
                     </div>
                     <van-divider />
                 </div>
-            </van-list>
+            </van-list>-->
         </div>
     </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 export default {
     data() {
         return {
             fixed: false,
-            space: 0,
-            listSpace: 0
+            space: 0
         };
     },
     props: {
-        songLists: {
-            type: Array,
-            required: true
+        //区分歌单详情页是否有相框，比如歌单和每日推荐等
+        hasAlbum: {
+            type: Boolean,
+            default: false
+        },
+        bgUrl: {
+            type: String,
+            default: require("../assets/images/gouge.jpg")
+        },
+        height: {
+            type: String,
+            default: "210px"
         }
     },
     computed: {},
@@ -62,33 +72,23 @@ export default {
                 this.fixed = false;
             }
         },
-        ...mapMutations([
-            "AUDIOLIST_REPLACE",
-            "SET_AUDIO_INDEX",
-            "AUDIOLIST_CLEAR",
-            "FULLSCREEN_TOGGLE"
-        ]),
         playAll() {
-            //点击播放全部按钮的策略是每点击一次，就更新播放队列一次
-            this.AUDIOLIST_CLEAR();
-            //替换当前播放队列
-            this.AUDIOLIST_REPLACE(this.songLists);
-            //开始播放队列第一首歌
-            this.SET_AUDIO_INDEX(0);
-            //切换到全屏
-            this.FULLSCREEN_TOGGLE();
+            this.$emit('playAll')
         }
     }
 };
 </script>
 
 <style lang="less">
-.song-list-bg {
+.song-list-wrap {
     position: relative;
-    background: url(../../../assets/images/gouge.jpg) no-repeat;
-    background-size: contain;
-    background-attachment: fixed;
     overflow: hidden;
+    .song-list-bg {
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-attachment: fixed;
+    }
     .song-list-back {
         width: 100%;
         position: absolute;
@@ -100,10 +100,10 @@ export default {
     }
     .song-list {
         position: relative;
-        margin-top: 20vh;
+        margin-top: -20px;
         background-color: #fff;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
         .song-list-playall {
             width: 100%;
             display: flex;
@@ -111,39 +111,12 @@ export default {
             padding-left: 10px;
             margin-bottom: 10px;
             line-height: 1.5;
-            border: 1px solid #ebedf0;
-            border-radius: 10px;
-            box-shadow: 0 2px 2px #ccc;
+            //border: 1px solid #ebedf0;
+            border-radius: 20px;
+            //box-shadow: 0 2px 2px #ccc;
             background-color: #fff;
             &:active {
                 background-color: #ebedf0;
-            }
-        }
-        .song-block {
-            text-align: left;
-            padding-left: 10px;
-            &:active {
-                background-color: #ebedf0;
-            }
-        }
-        .song-block > img {
-            width: 35px;
-            height: 35px;
-            border-radius: 5px;
-        }
-        .song-brief-info {
-            display: inline-block;
-            vertical-align: middle;
-            margin-left: 10px;
-            p:first-child {
-                width: 210px;
-                line-height: 1.3;
-                font-size: 13px;
-            }
-            p:last-child {
-                width: 220px;
-                margin-top: 5px;
-                font-size: 6px;
             }
         }
     }

@@ -2,7 +2,9 @@
   <div id="app">
     <nav-header v-if="control"></nav-header>
         <swiper v-if="control"></swiper>
-        <router-view v-if="!control"></router-view>
+        <keep-alive :max="10">
+          <router-view v-if="!control"></router-view>
+          </keep-alive>
         <!-- 播放组件 -->
         <player v-show="!AUDIOLIST_EMPTY"></player>
   </div>
