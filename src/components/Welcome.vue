@@ -10,11 +10,8 @@ export default {
         return {};
     },
     created() {
-      //验证cookie是否过期，过期需重新登录
-        if(!this.getLoginStatus()){ 
-          this.$store.commit('CHECK_LOGIN',0)
-          localStorage.removeItem('loginState')
-        }
+        //验证cookie是否过期，过期需重新登录
+        this.getLoginStatus()
         if (sessionStorage.getItem("first") !== null) {
             this.$router.push("/find");
         }
@@ -34,8 +31,16 @@ export default {
         getLoginStatus() {
             api.getLoginStatus()
                 .then(res => {
-                    if (res.data.code == 200) return true;
-                    else return false;
+                    console.log(res.data.code);
+                    if (res.data.code == 200) {
+                        localStorage.setItem("loginState", 1);
+                        this.$store.commit("CHECK_LOGIN", 1);
+                        console.log("执行了");
+                    } else {
+                        this.$store.commit("CHECK_LOGIN", 0);
+                        localStorage.removeItem("loginState");
+                        console.log("过期了");
+                    }
                 })
                 .catch(e => e);
         }
