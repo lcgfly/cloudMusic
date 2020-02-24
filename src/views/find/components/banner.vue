@@ -8,22 +8,13 @@
     </div>
 </template>
 <script>
-import api from "@/api";
 export default {
     data() {
         return {
-            list:[]
         };
     },
-    mounted() {
-        this.init();
-    },
-    methods: {
-        init(){
-            api.getBanner().then(res=>{
-                this.list = res.data.banners;
-            })
-        }
+    props:{
+        list:Array
     }
 };
 </script>

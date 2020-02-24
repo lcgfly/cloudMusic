@@ -10,13 +10,14 @@
             </div>
             <div class="mini-right">
                 <i class="iconfont" :class="{'icon-icon-3':playing,'icon-icon-7':!playing}" @click.stop="toggle"></i>
-                <i class="iconfont icon-icon-8"></i>
+                <i class="iconfont icon-icon-8" @click.stop="menuList"></i>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import Bus from "@/util/Bus.js";
 import { mapState, mapMutations } from "vuex";
 export default {
     data() {
@@ -50,6 +51,9 @@ export default {
         toggle(){
             this.PLAYING_TOGGLE()
             this.$emit('toggle')
+        },
+        menuList(){
+            Bus.$emit('menuListShow')
         }
     }
 };

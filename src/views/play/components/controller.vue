@@ -24,12 +24,13 @@
                 @click="toggle"
             ></i>
             <i class="iconfont icon-icon-1" @click.stop="next"></i>
-            <i class="iconfont icon-icon-8"></i>
+            <i class="iconfont icon-icon-8" @click.stop="menuList"></i>
         </div>
     </div>
 </template>
 
 <script>
+import Bus from "@/util/Bus.js";
 import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
     data() {
@@ -118,6 +119,9 @@ export default {
                 message: message,
                 position: "bottom"
             });
+        },
+        menuList(){
+            Bus.$emit('menuListShow')
         }
     },
     filters: {

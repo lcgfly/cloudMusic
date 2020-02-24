@@ -11,7 +11,7 @@
 </template>
 <script>
 import Bus from "../util/Bus";
-
+import find from "@/views/find";
 export default {
     data() {
         return {
@@ -38,7 +38,7 @@ export default {
     },
     components: {   //组件懒加载
         my:()=>import ("../views/my"),
-        find:()=>import ("../views/find"),
+        find,
         village:()=>import ("../views/village"),
         vlog:()=>import ("../views/vlog")
     },

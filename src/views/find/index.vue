@@ -1,11 +1,12 @@
 <template>
     <div class="find">
         2
-        <banner></banner>
+        <banner :list="list"></banner>
         <category :list="category"></category>
     </div>
 </template>
 <script>
+import api from "@/api";
 import banner from "./components/banner";
 import category from "@/components/category";
 export default {
@@ -36,12 +37,23 @@ export default {
                     icon:'service-o',
                     color:'#fff'
                 }
-            ]
+            ],
+            list:[]
         };
     },
     components:{
         banner,
         category
+    },
+    mounted() {
+        this.init();
+    },
+    methods: {
+        init(){
+            api.getBanner().then(res=>{
+                this.list = res.data.banners;
+            })
+        }
     }
 };
 </script>
