@@ -6,7 +6,8 @@ import {
     daily_recommend,
     login_status,
     lyric,
-    song_url
+    song_url,
+    playlist_hot
 } from "./config";
 
 export default {
@@ -66,5 +67,8 @@ export default {
                 id:id
             }
         })
+    },
+    getPlaylistHot(){
+        return axios.get(playlist_hot)
     }
 }

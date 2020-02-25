@@ -21,7 +21,7 @@ import "swiper/dist/css/swiper.css";
 //Swiper
 import VueAwesomeSwiper from "vue-awesome-swiper";
 //vant组件
-import { Icon, Popup, Swipe, SwipeItem, Button, Field, List, Divider, Slider,Toast } from "vant";
+import { Icon, Popup, Swipe, SwipeItem, Button, Field, List, Divider, Slider,Toast,Tab,Tabs,Loading } from "vant";
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(Icon);
@@ -32,7 +32,8 @@ Vue.use(Field);
 Vue.use(List).use(Divider);
 Vue.use(Slider);
 Vue.use(Toast);
-
+Vue.use(Tab).use(Tabs);
+Vue.use(Loading);
 new Vue({
   router,
   store,

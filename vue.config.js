@@ -24,6 +24,10 @@ module.exports = {
             '/song':{
                 target:'http://localhost:3000',
                 changeOrigin:true
+            },
+            '/playlist':{
+                target:'http://localhost:3000',
+                changeOrigin:true
             }
 
         }

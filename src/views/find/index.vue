@@ -21,7 +21,7 @@ export default {
                 },
                 {
                     name:'歌单',
-                    path:'songsheet',
+                    path:'playlist',
                     icon:'music-o',
                     color:'#fff'
                 },

@@ -38,7 +38,7 @@ export default {
     },
     components: {   //组件懒加载
         my:()=>import ("../views/my"),
-        find,
+        find:()=>import("../views/find"),
         village:()=>import ("../views/village"),
         vlog:()=>import ("../views/vlog")
     },

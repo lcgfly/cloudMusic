@@ -60,7 +60,6 @@ export default {
         },
         ...mapActions(["_playAll"]),
         playAll(index) {
-            console.log(index)
             if (index) {
                 return this._playAll({
                     list: this.list,
