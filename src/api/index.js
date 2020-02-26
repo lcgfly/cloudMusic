@@ -7,7 +7,9 @@ import {
     login_status,
     lyric,
     song_url,
-    playlist_hot
+    playlist_hot,
+    playlist_top,
+    playlist_highquality
 } from "./config";
 
 export default {
@@ -70,5 +72,40 @@ export default {
     },
     getPlaylistHot(){
         return axios.get(playlist_hot)
+    },
+    /**
+     * 
+     * @param {String} tag 分类标签：华语、流行...
+     * @param {Number} limit 数据限制
+     */
+    getPlaylistTop(tag,limit=30){
+        return axios.get(playlist_top,{
+            params:{
+                cat:tag,
+                limit:limit
+            }
+        })
+    },
+    /**
+     * 
+     * @param {Number} updateTime 分页参数,取上一页最后一个歌单的 updateTime 获取下一页数据 
+     * @param {Number} limit    数据限制 
+     */
+    playlist_highquality(updateTime,limit=30){
+        if(updateTime==undefined){
+            return axios.get(playlist_highquality,{
+                params:{
+                    limit:limit
+                }
+            })
+        }
+        else{
+            return axios.get(playlist_highquality,{
+                params:{
+                    limit:limit,
+                    before:updateTime
+                }
+            })
+        }
     }
 }

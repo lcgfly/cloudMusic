@@ -28,6 +28,10 @@ module.exports = {
             '/playlist':{
                 target:'http://localhost:3000',
                 changeOrigin:true
+            },
+            '/top':{
+                target:'http://localhost:3000',
+                changeOrigin:true
             }
 
         }

@@ -6,3 +6,5 @@ export const login_status = '/login/status' //验证登录状态
 export const song_url = '/song/url' //获取歌曲url
 export const lyric = '/lyric'   //获取歌词
 export const playlist_hot = '/playlist/hot' //热门歌单分类
+export const playlist_top = '/top/playlist' //对应分类的歌单
+export const playlist_highquality = '/top/playlist/highquality' //获取精品歌单

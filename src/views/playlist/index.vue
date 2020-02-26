@@ -1,10 +1,13 @@
 <template>
     <div>
-        <default-nav title="歌单广场"></default-nav>
+        <div class="stick">
+            <default-nav title="歌单广场"></default-nav>
         <van-tabs v-model="active" @click="tabChange">
             <van-tab :title="item" v-for="(item,index) in list" :key="index"></van-tab>
         </van-tabs>
-        <swiper-cat :list="list"></swiper-cat>
+        </div>
+        
+        <swiper-cat class="main" :list="list"></swiper-cat>
     </div>
 </template>
 
@@ -14,6 +17,7 @@ import Bus from "@/util/Bus";
 import defaultNav from "@/components/defaultNav";
 import swiperCat from "./components/swiperCat";
 export default {
+    name:'playlist',
     data() {
         return {
             list: ['精品'],
@@ -52,4 +56,13 @@ export default {
 </script>
 
 <style lang="less">
+.stick{
+    position: fixed;
+    top: 0;
+    z-index: 99;
+    background-color: #fff;
+}
+.main{
+    margin-top: 85px;
+}
 </style>
