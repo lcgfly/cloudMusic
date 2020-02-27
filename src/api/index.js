@@ -9,7 +9,8 @@ import {
     song_url,
     playlist_hot,
     playlist_top,
-    playlist_highquality
+    playlist_highquality,
+    playlist_detail
 } from "./config";
 
 export default {
@@ -107,5 +108,16 @@ export default {
                 }
             })
         }
+    },
+    /**
+     * 
+     * @param {Number} id   歌单id 
+     */
+    getPlaylistDetail(id){
+        return axios.get(playlist_detail,{
+            params:{
+                id:id
+            }
+        })
     }
 }

@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import Router from 'vue-router'
+import {Playcount} from "./util/Playcount";
 
 //解决控制台报错:Uncatch Promise （vue-router3.0以后采用了Promise）
 const originalPush = Router.prototype.push
@@ -11,6 +12,9 @@ Router.prototype.push = function push(location) {
 }
 
 Vue.config.productionTip = false;
+
+//全局filter
+Vue.filter('Playcount',Playcount);
 
 //全局样式
 import "./assets/css/deviceAdapter/index.less";

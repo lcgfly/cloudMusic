@@ -9,6 +9,7 @@ import vlog from "@/views/vlog"
 const login = () => import('@/views/login')
 const daily = () => import('@/views/daily')
 const playlist = () => import('@/views/playlist')
+const detailPage = ()=> import('@/views/detailPage')
 
 Vue.use(VueRouter);
 
@@ -44,6 +45,11 @@ const routes = [
   {
     path: '/playlist',
     component: playlist
+  },
+  {
+    name:'detailPage',
+    path:'/detailPage',
+    component:detailPage
   }
 ];
 

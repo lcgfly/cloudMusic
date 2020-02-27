@@ -3,7 +3,28 @@
         <div class="song-list-back">
             <van-icon name="arrow-left" size="0.4rem" color="#fff" @click="back" />
         </div>
-        <div class="song-list-bg" :style="{height:height,backgroundImage:`url(${bgUrl})`}"></div>
+        <div
+            class="song-list-bg"
+            :style="{height:height,backgroundImage:`url(${bgUrl})`}"
+            :class="{'vague':hasAlbum}"
+        ></div>
+        <!-- 歌单详情页显示 -->
+        <div class="album-wrapper" v-if="hasAlbum">
+            <div class="left">
+                <div class="album-cover">
+                    <img :src="bgUrl" alt />
+                    <span>{{playCount|Playcount}}</span>
+                </div>
+            </div>
+            <div class="right">
+                <div class="album-title">{{albumTitle}}</div>
+                <div class="album-creator">
+                    <img :src="creatorAvatar" alt />
+                    <span>{{creatorName}}</span>
+                </div>
+                <p class="album-desc">{{description}}</p>
+            </div>
+        </div>
         <div class="song-list" :class="{fixed:fixed}">
             <div ref="playall" class="song-list-playall">
                 <van-icon name="play-circle-o" size="0.4rem" />
@@ -11,21 +32,6 @@
             </div>
             <!-- 显示每一行歌曲信息 -->
             <slot></slot>
-            <!-- <van-list ref="list" :finished="true" finished-text="真的一首也没有了😜">
-                <div
-                    class="song-block"
-                    v-for="(item,index) in songLists"
-                    :key="index"
-                    @click="play()"
-                >
-                    <img :src="item.album.picUrl" alt />
-                    <div class="song-brief-info">
-                        <p class="van-ellipsis">{{item.name}} {{item.alias?item.alias[0]:''}}</p>
-                        <p class="van-ellipsis">{{item.artists[0].name}} - {{item.album.name}}</p>
-                    </div>
-                    <van-divider />
-                </div>
-            </van-list>-->
         </div>
     </div>
 </template>
@@ -51,6 +57,21 @@ export default {
         height: {
             type: String,
             default: "210px"
+        },
+        playCount: {
+            type: Number
+        },
+        description: {
+            type: String
+        },
+        albumTitle: {
+            type: String
+        },
+        creatorAvatar: {
+            type: String
+        },
+        creatorName: {
+            type: String
         }
     },
     computed: {},
@@ -73,7 +94,7 @@ export default {
             }
         },
         playAll() {
-            this.$emit('playAll')
+            this.$emit("playAll");
         }
     }
 };
@@ -88,6 +109,8 @@ export default {
         background-repeat: no-repeat;
         background-size: contain;
         background-attachment: fixed;
+        position: relative;
+        z-index: -1;
     }
     .song-list-back {
         width: 100%;
@@ -127,5 +150,59 @@ export default {
             top: 0;
         }
     }
+}
+.album-wrapper {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 15px;
+    .left {
+        min-width: 108px;
+        .album-cover {
+            position: relative;
+            img {
+                width: 100%;
+                max-width: 108px;
+                border-radius: 10px;
+            }
+            span {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                color: #fff;
+            }
+        }
+    }
+    .right {
+        margin-left: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+        .album-title {
+            font-size: 18px;
+            color: #fff;
+        }
+        .album-creator {
+            color: hsla(0, 0%, 100%, 0.6);
+            img {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+            }
+        }
+        .album-desc {
+            color: hsla(0, 0%, 100%, 0.6);
+            font-size: 12px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+    }
+}
+.vague {
+    filter: blur(40px);
+    transform: scale(1.75);
 }
 </style>

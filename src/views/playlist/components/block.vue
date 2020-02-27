@@ -2,12 +2,12 @@
 <div>
   <van-loading size="24px" color="#42b983" vertical v-show="show">加载中...</van-loading>
   <div class="pt-wrapper">
-      <div class="pt-item" v-for="(item,index) in list" :key="index">
+      <div class="pt-item" v-for="(item,index) in list" :key="index" @click="toDetailPage(item.id)">
           <div class="pt-cover">
               <img :src="item.coverImgUrl" alt="">
-              <span>{{item.playCount|transfer}}</span>
+              <span>{{item.playCount|Playcount}}</span>
           </div>
-          <p class="pt-description">{{item.description}}</p>
+          <p class="pt-description">{{item.name}}</p>
       </div>
   </div>
 </div>
@@ -63,12 +63,9 @@ export default {
                     this.loaded = true
                 }
             })
-        }
-    },
-    filters:{
-        transfer(val){
-            if(val<10000) return
-            return Math.floor(val/10000)+'万'
+        },
+        toDetailPage(id){
+            this.$router.push({name:'detailPage',params:{id:id}})
         }
     }
 }
