@@ -8,7 +8,7 @@
             :style="{height:height,backgroundImage:`url(${bgUrl})`}"
             :class="{'vague':hasAlbum}"
         ></div>
-        <!-- 歌单详情页显示 -->
+        <!-- 只在歌单详情页显示 -->
         <div class="album-wrapper" v-if="hasAlbum">
             <div class="left">
                 <div class="album-cover">
@@ -25,12 +25,13 @@
                 <p class="album-desc">{{description}}</p>
             </div>
         </div>
+        <!-- 播放列表 -->
         <div class="song-list" :class="{fixed:fixed}">
             <div ref="playall" class="song-list-playall">
                 <van-icon name="play-circle-o" size="0.4rem" />
                 <span @click="playAll">播放全部</span>
             </div>
-            <!-- 显示每一行歌曲信息 -->
+            <!-- 用来显示每一行歌曲信息 -->
             <slot></slot>
         </div>
     </div>
@@ -154,7 +155,7 @@ export default {
 .album-wrapper {
     display: flex;
     position: absolute;
-    top: 50%;
+    top: 120px;
     transform: translateY(-50%);
     padding: 0 15px;
     .left {

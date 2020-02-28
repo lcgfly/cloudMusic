@@ -60,13 +60,10 @@ export default {
         },
         ...mapActions(["_playAll"]),
         playAll(index) {
-            if (index) {
-                return this._playAll({
-                    list: this.list,
-                    index: index
-                });
-            }
-            this._playAll({ list: this.list });
+            this._playAll({
+                list: this.list,
+                index: index
+            });
         }
     }
 };

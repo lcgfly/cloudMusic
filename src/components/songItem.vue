@@ -1,8 +1,9 @@
 <template>
     <div>
         
-            <div v-if="imgUrl" class="song-block" @click="playAll">
-                <img :src="imgUrl" alt />
+            <div  class="song-block" @click="playAll">
+                <img :src="imgUrl" alt  v-if="!idx"/>
+                <span v-if="idx">{{idx}}</span>
                 <div class="song-brief-info">
                     <p class="van-ellipsis">{{name}} {{alias}}</p>
                     <p class="van-ellipsis">{{artist}} - {{albumName}}</p>
@@ -33,6 +34,9 @@ export default {
         },
         albumName:{
             type:String
+        },
+        idx:{
+            type:Number
         }
     },
     methods:{
@@ -51,11 +55,13 @@ export default {
     &:active {
         background-color: #ebedf0;
     }
-}
-.song-block > img {
+
+    &>img,&>span {
     width: 35px;
     height: 35px;
+    line-height: 35px;
     border-radius: 5px;
+
 }
 .song-brief-info {
     text-align: left;
@@ -71,5 +77,6 @@ export default {
         margin-top: 5px;
         font-size: 6px;
     }
+}
 }
 </style>
