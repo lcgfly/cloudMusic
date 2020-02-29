@@ -10,7 +10,8 @@ import {
     playlist_hot,
     playlist_top,
     playlist_highquality,
-    playlist_detail
+    playlist_detail,
+    toplist_detail
 } from "./config";
 
 export default {
@@ -119,5 +120,8 @@ export default {
                 id:id
             }
         })
+    },
+    getToplistDetail(){
+        return axios.get(toplist_detail)
     }
 }

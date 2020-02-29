@@ -9,3 +9,4 @@ export const playlist_hot = '/playlist/hot' //热门歌单分类
 export const playlist_top = '/top/playlist' //对应分类的歌单
 export const playlist_highquality = '/top/playlist/highquality' //获取精品歌单
 export const playlist_detail = '/playlist/detail'   //获取歌单详情
+export const toplist_detail = '/toplist/detail' //所有榜单的内容摘要

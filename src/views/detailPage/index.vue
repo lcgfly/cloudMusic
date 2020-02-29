@@ -14,7 +14,7 @@
             <song-item
                 v-for="(item,index) in albumInfo.tracks"
                 :key="index"
-                :idx="index+1"
+                :num="index+1"
                 :name="item.name"
                 :alias="item.alia[0]"
                 :artist="item.ar[0].name"
@@ -61,7 +61,6 @@ export default {
         playlistData(id) {
             api.getPlaylistDetail(id)
                 .then(res => {
-                    console.log(res.data.playlist);
                     var res = res.data;
                     if (res.code == 200) {
                         this.albumInfo = res.playlist;

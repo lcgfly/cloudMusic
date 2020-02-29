@@ -77,12 +77,12 @@ export default {
     flex-wrap: wrap;
     padding: 10px;
     .pt-item{
-        flex: 1 1 25%;
+        flex: 0 1 25%;
         margin: 10px 5px 0;
         .pt-cover{
             position: relative;
             img{
-                width: 100%;
+                width: 108px;
                 max-width: 108px;
                 border-radius: 10px;
             }

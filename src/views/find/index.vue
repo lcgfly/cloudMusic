@@ -27,7 +27,7 @@ export default {
                 },
                 {
                     name:'排行榜',
-                    path:'top',
+                    path:'toplist',
                     icon:'chart-trending-o',
                     color:'#fff'
                 },

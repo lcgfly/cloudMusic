@@ -10,6 +10,7 @@ const login = () => import('@/views/login')
 const daily = () => import('@/views/daily')
 const playlist = () => import('@/views/playlist')
 const detailPage = ()=> import('@/views/detailPage')
+const toplist = ()=> import('@/views/toplist')
 
 Vue.use(VueRouter);
 
@@ -50,6 +51,10 @@ const routes = [
     name:'detailPage',
     path:'/detailPage',
     component:detailPage
+  },
+  {
+    path:'/toplist',
+    component:toplist
   }
 ];
 

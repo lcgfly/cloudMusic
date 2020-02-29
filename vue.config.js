@@ -32,6 +32,10 @@ module.exports = {
             '/top':{
                 target:'http://localhost:3000',
                 changeOrigin:true
+            },
+            '/toplist':{
+                target:'http://localhost:3000',
+                changeOrigin:true
             }
 
         }

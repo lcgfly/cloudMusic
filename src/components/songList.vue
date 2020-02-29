@@ -8,7 +8,7 @@
             :style="{height:height,backgroundImage:`url(${bgUrl})`}"
             :class="{'vague':hasAlbum}"
         ></div>
-        <!-- 只在歌单详情页显示 -->
+        <!-- 只在歌单详情页/排行榜详情页显示 -->
         <div class="album-wrapper" v-if="hasAlbum">
             <div class="left">
                 <div class="album-cover">
@@ -180,7 +180,9 @@ export default {
         display: flex;
         flex-wrap: wrap;
         align-content: space-between;
+        text-align: left;
         .album-title {
+            width: 100%;
             font-size: 18px;
             color: #fff;
         }

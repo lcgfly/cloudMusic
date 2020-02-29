@@ -2,8 +2,8 @@
     <div>
         
             <div  class="song-block" @click="playAll">
-                <img :src="imgUrl" alt  v-if="!idx"/>
-                <span v-if="idx">{{idx}}</span>
+                <img :src="imgUrl" alt  v-if="!num"/>
+                <span v-if="num">{{num}}</span>
                 <div class="song-brief-info">
                     <p class="van-ellipsis">{{name}} {{alias}}</p>
                     <p class="van-ellipsis">{{artist}} - {{albumName}}</p>
@@ -35,7 +35,7 @@ export default {
         albumName:{
             type:String
         },
-        idx:{
+        num:{
             type:Number
         }
     },
