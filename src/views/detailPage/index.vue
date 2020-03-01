@@ -20,7 +20,15 @@
                 :artist="item.ar[0].name"
                 :albumName="item.al.name"
                 @playAll="playAll(index)"
+                @dotMenu="dotMenu(index)"
             ></song-item>
+            <dot-menu
+            :imgUrl="albumInfo.tracks.length>0?albumInfo.tracks[idx].al.picUrl:''"
+            :name="albumInfo.tracks.length>0?albumInfo.tracks[idx].name:''"
+            :alias="albumInfo.tracks.length>0?albumInfo.tracks[idx].alia[0]:''"
+            :artist="albumInfo.tracks.length>0?albumInfo.tracks[idx].ar[0].name:''"
+            @insert="insert"
+        ></dot-menu>
         </song-list>
     </div>
 </template>
@@ -30,16 +38,19 @@ import api from "@/api";
 import { mapActions } from "vuex";
 import songList from "@/components/songList";
 import songItem from "@/components/songItem";
+import dotMenu from "@/components/dotMenu";
 export default {
     data() {
         return {
             albumInfo: [],
-            id: 0
+            id: 0,
+            idx:0
         };
     },
     components: {
         songList,
-        songItem
+        songItem,
+        dotMenu
     },
     created() {
         this.id = this.$route.params.id;
@@ -50,7 +61,7 @@ export default {
         this.check();
     },
     methods: {
-        ...mapActions(["_playAll"]),
+        ...mapActions(["_playAll","_insert"]),
         check() {
             let nid = this.$route.params.id;
             if (!(nid === this.id)) {
@@ -71,6 +82,13 @@ export default {
         playAll(index) {
             let list = this.albumInfo.tracks;
             this._playAll({ list: list, index: index });
+        },
+        dotMenu(index) {
+            this.idx = index;
+        },
+        insert(){
+            let source = this.albumInfo.tracks[this.idx]
+            this._insert(source)
         }
     }
 };

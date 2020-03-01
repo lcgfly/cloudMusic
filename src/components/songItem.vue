@@ -8,12 +8,14 @@
                     <p class="van-ellipsis">{{name}} {{alias}}</p>
                     <p class="van-ellipsis">{{artist}} - {{albumName}}</p>
                 </div>
+                <van-icon name="weapp-nav" class="Dot-more" @click.stop="dotMenu_call"/>
             </div>
         
     </div>
 </template>
 
 <script>
+import Bus from "@/util/Bus.js";
 export default {
     data(){
         return{}
@@ -42,6 +44,12 @@ export default {
     methods:{
         playAll(){
             this.$emit('playAll')
+        },
+        dotMenu_call(){
+            //向父组件传index
+            this.$emit('dotMenu')
+            //控制dotMenu组件显示
+            Bus.$emit('dotMenu_call')
         }
     }
 };
@@ -78,5 +86,34 @@ export default {
         font-size: 6px;
     }
 }
+}
+.song-block.dot-menu{
+    align-items: center;
+    padding: 10px 10px;
+    border-bottom: 0.5px solid #ebedf0;
+    margin-bottom: 0;
+    &>img{
+        width: 50px;
+        height: auto;
+    }
+}
+.dot-line{
+    display: flex;
+    font-size: 16px;
+    padding: 10px;
+    i{
+        font-size: 30px;
+    }
+    &>div{
+        width: 100%;
+        line-height: 1.5;
+        text-align: left;
+        margin-left: 20px;
+        border-bottom: 0.5px solid #ebedf0;
+    }
+}
+.Dot-more{
+    flex:1;
+    color:hsla(0, 0%, 0%, 0.6);
 }
 </style>
