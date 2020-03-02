@@ -1,6 +1,18 @@
 <template>
     <div class="lyric-wrapper" ref="listwrap">
-        <ul class="lyric-scroll" ref="list" :style="{transform:`translateY(${spaceY}rem)`}" @touchstart.passive="touchStart" @touchmove.passive="touchHandler" @touchend="touchEnd">
+        <div class="record" :class="{'stop':!playing}" v-show="showAlbum">
+          <img :src="picUrl" alt="" @click="change">
+        </div>
+        <ul
+            class="lyric-scroll"
+            ref="list"
+            v-show="!showAlbum"
+            :style="{transform:`translateY(${spaceY}rem)`}"
+            @touchstart.passive="touchStart"
+            @touchmove.passive="touchHandler"
+            @touchend="touchEnd"
+            @click="change"
+        >
             <li
                 v-for="(item,index) in lyricArray"
                 :key="index"
@@ -11,65 +23,80 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
 export default {
     data() {
         return {
-          spaceY:0,
-          isTouch:false,
-          startY:0,
-          offset:0,
-          htmlFontSize:0
+            spaceY: 0,
+            isTouch: false,
+            startY: 0,
+            offset: 0,
+            htmlFontSize: 0,
+            showAlbum:true
         };
     },
     props: {
         lyricArray: Array,
-        lyricIndex: Number
+        lyricIndex: Number,
+        picUrl: String
     },
-    watch:{
-      lyricIndex:'listScroll'
+    computed:{
+        ...mapState(["playing"])
     },
-    mounted(){
-      //拿到html的font-size
-      this.htmlFontSize = Number(window.getComputedStyle(document.querySelector('html')).fontSize.replace(/\D/g,''))
+    watch: {
+        lyricIndex: "listScroll"
     },
-    methods:{
-      listScroll(val,oldVal){
-        if(val>0){
-          if(this.isTouch) return
-          this.spaceY = -(val*0.96)  //0.96:根节点字体大小/行高
-        }
-        else{
-          this.spaceY = 0;
-        }
-      },
-      touchStart(e){
-        this.startY = e.touches[0].clientY
-        this.isTouch =true
-      },
-      touchHandler(e){
-        this.offset = e.touches[0].clientY - this.startY
-        //下滑
-        if(this.offset>0){
-            //边界值判定
-            if((this.spaceY+this.offset/this.htmlFontSize)>0){
-              this.spaceY = 0
-              return
+    mounted() {
+        //拿到html的font-size
+        this.htmlFontSize = Number(
+            window
+                .getComputedStyle(document.querySelector("html"))
+                .fontSize.replace(/\D/g, "")
+        );
+    },
+    methods: {
+        listScroll(val, oldVal) {
+            if (val > 0) {
+                if (this.isTouch) return;
+                this.spaceY = -(val * 0.96); //0.96:根节点字体大小/行高
+            } else {
+                this.spaceY = 0;
             }
-          this.spaceY=(this.spaceY+(this.offset/this.htmlFontSize))
+        },
+        touchStart(e) {
+            this.startY = e.touches[0].clientY;
+            this.isTouch = true;
+        },
+        touchHandler(e) {
+            this.offset = e.touches[0].clientY - this.startY;
+            //下滑
+            if (this.offset > 0) {
+                //边界值判定
+                if (this.spaceY + this.offset / this.htmlFontSize > 0) {
+                    this.spaceY = 0;
+                    return;
+                }
+                this.spaceY = this.spaceY + this.offset / this.htmlFontSize;
+            }
+            //上滑
+            else {
+                //边界值判定
+                if (
+                    Math.abs(this.spaceY + this.offset / this.htmlFontSize) >
+                    (this.lyricArray.length - 1) * 0.96
+                ) {
+                    this.spaceY = -((this.lyricArray.length - 1) * 0.96);
+                    return;
+                }
+                this.spaceY = this.spaceY + this.offset / this.htmlFontSize;
+            }
+        },
+        touchEnd(e) {
+            this.isTouch = false;
+        },
+        change(){
+          this.showAlbum = !this.showAlbum;
         }
-        //上滑
-        else{
-            //边界值判定
-           if(Math.abs(this.spaceY+this.offset/this.htmlFontSize)>(this.lyricArray.length-1)*0.96){ 
-             this.spaceY = -((this.lyricArray.length-1)*0.96)
-             return
-           } 
-           this.spaceY=(this.spaceY+(this.offset/this.htmlFontSize))
-        }
-      },
-      touchEnd(e){
-        this.isTouch = false
-      }
     }
 };
 </script>
@@ -78,10 +105,10 @@ export default {
 .lyric-wrapper {
     width: 100%;
     height: 80vh;
-    //background-color: #ccc;
+    position: relative;
     overflow: hidden;
-    &::-webkit-scrollbar{
-      display: none;
+    &::-webkit-scrollbar {
+        display: none;
     }
     .lyric-scroll {
         margin-top: 80%;
@@ -95,6 +122,53 @@ export default {
                 font-size: 18px;
             }
         }
+    }
+}
+.record {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+        #2a2928,
+        #2a2928 1%,
+        rgba(42, 41, 40, 0.85) 2%
+    );
+    animation: zhuan 20s linear infinite;
+    img{
+      width: 80%;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+}
+// .record:after {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     margin: -35px;
+//     border: solid 1px #fff;
+//     width: 68px;
+//     height: 68px;
+//     border-radius: 50%;
+//     box-shadow: 0 0 0 4px #42b983, inset 0 0 0 27px #42b983;
+//     background: #fff;
+//     content: "";
+// }
+.stop{
+    animation-play-state: paused;
+}
+@keyframes zhuan {
+  from{
+    transform: translate(-50%,-50%) rotate(0deg);
+  }
+    to {
+        transform:translate(-50%,-50%) rotate(360deg);
     }
 }
 </style>

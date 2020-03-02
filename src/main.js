@@ -21,6 +21,7 @@ import "./assets/css/deviceAdapter/index.less";
 import "./assets/css/reset.less";
 import "vant/lib/index.css";
 import "swiper/dist/css/swiper.css";
+import "./assets/css/myAnimation.less";
 
 //Swiper
 import VueAwesomeSwiper from "vue-awesome-swiper";

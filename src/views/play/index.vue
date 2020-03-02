@@ -3,7 +3,7 @@
         <div class="bg" v-show="fullScreen" :style="{backgroundImage:`url(${picUrl})`}"></div>
         <div class="full" v-show="fullScreen">
             <navbar :name="name" :artists="artists"></navbar>
-            <lyric-view :lyricArray="lyricArray" :lyricIndex="lyricIndex"></lyric-view>
+            <lyric-view :lyricArray="lyricArray" :lyricIndex="lyricIndex" :picUrl="picUrl"></lyric-view>
             <controller
                 :nowTime="nowTime"
                 :duration="duration"

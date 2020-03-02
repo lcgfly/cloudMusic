@@ -187,6 +187,7 @@ export default {
             color: #fff;
         }
         .album-creator {
+            width: 100%;
             color: hsla(0, 0%, 100%, 0.6);
             img {
                 width: 35px;

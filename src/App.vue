@@ -8,7 +8,8 @@
             <router-view v-if="!control"></router-view>
         </keep-alive>
         <!-- 播放组件 -->
-        <player v-show="!AUDIOLIST_EMPTY"></player>
+            <player v-show="!AUDIOLIST_EMPTY"></player>
+        
     </div>
 </template>
 <script>
@@ -36,6 +37,8 @@ export default {
 };
 </script>
 <style lang="less">
+
+
 #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
