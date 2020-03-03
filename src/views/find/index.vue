@@ -3,12 +3,14 @@
         2
         <banner :list="list"></banner>
         <category :list="category"></category>
+        <recommend :list="recList"></recommend>
     </div>
 </template>
 <script>
 import api from "@/api";
 import banner from "./components/banner";
 import category from "@/components/category";
+import recommend from "./components/recommend";
 export default {
     data() {
         return {
@@ -38,21 +40,41 @@ export default {
                     color:'#fff'
                 }
             ],
-            list:[]
+            list:[],
+            recList:[]
         };
     },
     components:{
         banner,
-        category
+        category,
+        recommend
     },
-    mounted() {
+    created() {
         this.init();
+    },
+    activated(){
+        if(this.login&&this.recList.length==0){
+            this.getRecommendList();
+        }
+    },
+    computed:{
+        login(){
+            return this.$store.state.LOGIN_STATE
+        }
     },
     methods: {
         init(){
             api.getBanner().then(res=>{
                 this.list = res.data.banners;
             })
+        },
+        getRecommendList(){
+            api.getPlaylistRecommend().then((res=>{
+                var res = res.data;
+                if(res.code == 200){
+                    this.recList = res.recommend
+                }
+            }))
         }
     }
 };

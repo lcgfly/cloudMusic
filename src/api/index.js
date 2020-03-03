@@ -11,7 +11,8 @@ import {
     playlist_top,
     playlist_highquality,
     playlist_detail,
-    toplist_detail
+    toplist_detail,
+    playlist_recommend
 } from "./config";
 
 export default {
@@ -123,5 +124,8 @@ export default {
     },
     getToplistDetail(){
         return axios.get(toplist_detail)
+    },
+    getPlaylistRecommend(){
+        return axios.get(playlist_recommend)
     }
 }
