@@ -36,6 +36,14 @@ module.exports = {
             '/toplist':{
                 target:'http://localhost:3000',
                 changeOrigin:true
+            },
+            '/artists':{
+                target:'http://localhost:3000',
+                changeOrigin:true
+            },
+            '/artist':{
+                target:'http://localhost:3000',
+                changeOrigin:true
             }
 
         }

@@ -11,3 +11,6 @@ export const playlist_highquality = '/top/playlist/highquality' //获取精品�
 export const playlist_detail = '/playlist/detail'   //获取歌单详情
 export const toplist_detail = '/toplist/detail' //所有榜单的内容摘要
 export const playlist_recommend = '/recommend/resource' //每日推荐歌单，需登录
+export const artist_hot = '/top/artists'    //热门歌手
+export const artist_song ='/artists'    //获取歌手热门歌曲
+export const artist_desc = '/artist/desc'   //获取歌手描述

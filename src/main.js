@@ -26,7 +26,7 @@ import "./assets/css/myAnimation.less";
 //Swiper
 import VueAwesomeSwiper from "vue-awesome-swiper";
 //vant组件
-import { Icon, Popup, Swipe, SwipeItem, Button, Field, List, Divider, Slider,Toast,Tab,Tabs,Loading } from "vant";
+import { Icon, Popup, Swipe, SwipeItem, Button, Field, List, Divider, Slider,Toast,Tab,Tabs,Loading} from "vant";
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(Icon);

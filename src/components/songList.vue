@@ -6,7 +6,7 @@
         <div
             class="song-list-bg"
             :style="{height:height,backgroundImage:`url(${bgUrl})`}"
-            :class="{'vague':hasAlbum}"
+            :class="{'vague':hasAlbum,'mask':mask}"
         ></div>
         <!-- 只在歌单详情页/排行榜详情页显示 -->
         <div class="album-wrapper" v-if="hasAlbum">
@@ -73,6 +73,10 @@ export default {
         },
         creatorName: {
             type: String
+        },
+        mask:{
+            type:Boolean,
+            default:false
         }
     },
     computed: {},
@@ -107,11 +111,23 @@ export default {
     overflow: hidden;
     .song-list-bg {
         width: 100%;
+        background-color: salmon;
         background-repeat: no-repeat;
         background-size: contain;
         background-attachment: fixed;
         position: relative;
         z-index: -1;
+    }
+    .song-list-bg.mask{
+        &::after{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color:hsla(0, 0%, 0%, 0.25);
+        }
     }
     .song-list-back {
         width: 100%;

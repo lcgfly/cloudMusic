@@ -12,7 +12,10 @@ import {
     playlist_highquality,
     playlist_detail,
     toplist_detail,
-    playlist_recommend
+    playlist_recommend,
+    artist_hot,
+    artist_song,
+    artist_desc
 } from "./config";
 
 export default {
@@ -127,5 +130,41 @@ export default {
     },
     getPlaylistRecommend(){
         return axios.get(playlist_recommend)
+    },
+    /**
+     * 
+     * @param {Number} limit 取出数量
+     * @param {Number} offset 页面偏移量 默认0为第一页，所以不用-1
+     */
+    getArtistHot(offset=0,limit=30){
+        return axios.get(artist_hot,{
+            params:{
+                offset:offset*limit,
+                limit:limit
+                
+            }
+        })
+    },
+    /**
+     * 获得歌手热门歌曲(50首)
+     * @param {Number} id   歌手id 
+     */
+    getArtistSong(id){
+        return axios.get(artist_song,{
+            params:{
+                id:id
+            }
+        })
+    },
+    /**
+     * 
+     * @param {Number} id 歌手id 
+     */
+    getArtistDesc(id){
+        return axios.get(artist_desc,{
+            params:{
+                id:id
+            }
+        })
     }
 }

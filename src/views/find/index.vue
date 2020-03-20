@@ -1,6 +1,5 @@
 <template>
     <div class="find">
-        2
         <banner :list="list"></banner>
         <category :list="category"></category>
         <recommend :list="recList"></recommend>
@@ -34,9 +33,9 @@ export default {
                     color:'#fff'
                 },
                 {
-                    name:'电台',
-                    path:'radio',
-                    icon:'service-o',
+                    name:'歌手',
+                    path:'artist',
+                    icon:'user-circle-o',
                     color:'#fff'
                 }
             ],
