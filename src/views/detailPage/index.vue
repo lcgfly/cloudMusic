@@ -35,6 +35,7 @@
 
 <script>
 import api from "@/api";
+import Bus from "@/util/Bus.js";
 import { mapActions } from "vuex";
 import songList from "@/components/songList";
 import songItem from "@/components/songItem";
@@ -56,9 +57,11 @@ export default {
         this.id = this.$route.params.id;
         this.playlistData(this.id);
     },
-    mounted() {},
     activated() {
         this.check();
+    },
+    deactivated(){
+        Bus.$off('dotMenu_call')
     },
     methods: {
         ...mapActions(["_playAll","_insert"]),

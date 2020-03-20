@@ -30,6 +30,7 @@
 
 <script>
 import api from "@/api";
+import Bus from "@/util/Bus.js";
 import { mapActions } from "vuex";
 import songList from "@/components/songList";
 import songItem from "@/components/songItem";
@@ -59,6 +60,9 @@ export default {
         if (this.isLogin) {
             this.getDailySongs();
         }
+    },
+    deactivated(){
+        Bus.$off('dotMenu_call')
     },
     methods: {
         getDailySongs() {

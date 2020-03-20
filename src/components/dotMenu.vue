@@ -21,7 +21,8 @@ import Bus from "@/util/Bus.js";
 export default {
     data(){
         return{
-            show:false
+            show:false,
+            key:0
         }
     },
     props:{
@@ -31,6 +32,10 @@ export default {
         artist:String
     },
     mounted(){
+        //解决$off该事件后第一次监听不到的问题
+        Bus.$on('dotMenu_call',this.toShow)
+    },
+    activated(){
         Bus.$on('dotMenu_call',this.toShow)
     },
     methods:{

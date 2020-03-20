@@ -62,6 +62,9 @@ export default {
         this.id = this.$route.params.id;
         this.getArtistHot(this.id);
     },
+    deactivated(){
+        Bus.$off('dotMenu_call')
+    },
     methods: {
         getArtistHot(id) {
             api.getArtistSong(id)
