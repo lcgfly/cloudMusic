@@ -16,7 +16,6 @@ export function ripple(){
 				ele.addEventListener('animationend',function(){
 					return ele.remove()
 				})
-				e.stopPropagation()
 				break;
 			}
 			target = target.parentNode
