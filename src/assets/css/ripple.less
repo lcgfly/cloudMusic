@@ -1,0 +1,25 @@
+.ripple{
+    position: relative;
+    overflow: hidden;
+}
+.r{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: rgba(0,0,0,.2);
+    transform: translate3d(-50%,-50%,0);
+    opacity: 1;
+    animation: rippling .6s linear 1 forwards;
+}
+@keyframes rippling {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(100);
+    }
+
+}

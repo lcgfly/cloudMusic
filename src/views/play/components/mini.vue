@@ -1,6 +1,6 @@
 <template>
-    <div class="mini-page" @click="toFullScreen">
-        <div class="mini-wrapper">
+    <div class="mini-page" @click="toFullScreen" @touchmove.prevent>
+        <div class="mini-wrapper ripple">
             <div class="mini-left">
                 <img :src="picUrl" />
                 <div>
@@ -9,8 +9,8 @@
                 </div>
             </div>
             <div class="mini-right">
-                <i class="iconfont" :class="{'icon-icon-3':playing,'icon-icon-7':!playing}" @click.stop="toggle"></i>
-                <i class="iconfont icon-icon-8" @click.stop="menuList"></i>
+                <i class="iconfont" :class="{'icon-icon-3':playing,'icon-icon-7':!playing}" @touchstart.prevent="toggle"></i>
+                <i class="iconfont icon-icon-8" @touchstart.prevent="menuList"></i>
             </div>
         </div>
     </div>

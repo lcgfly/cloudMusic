@@ -165,6 +165,7 @@ export default {
         .song-list-playall {
             position: fixed;
             top: 0;
+            z-index: 10;
         }
     }
 }

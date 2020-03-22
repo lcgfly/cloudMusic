@@ -1,7 +1,7 @@
 <template>
     <div>
         
-            <div  class="song-block" @click="playAll">
+            <div  class="song-block ripple" @click="playAll">
                 <img :src="imgUrl" alt  v-if="!num"/>
                 <span v-if="num">{{num}}</span>
                 <div class="song-brief-info">
@@ -60,10 +60,6 @@ export default {
     display: flex;
     padding-left: 10px;
     margin-bottom: 20px;
-    &:active {
-        background-color: #ebedf0;
-    }
-
     &>img,&>span {
     width: 35px;
     height: 35px;

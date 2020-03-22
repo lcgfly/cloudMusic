@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import Router from 'vue-router'
 import {Playcount} from "./util/Playcount";
+import {ripple} from "./util/Ripple";
 
 //解决控制台报错:Uncatch Promise （vue-router3.0以后采用了Promise）
 const originalPush = Router.prototype.push
@@ -12,6 +13,8 @@ Router.prototype.push = function push(location) {
 }
 
 Vue.config.productionTip = false;
+
+ripple()
 
 //全局filter
 Vue.filter('Playcount',Playcount);
@@ -22,6 +25,7 @@ import "./assets/css/reset.less";
 import "vant/lib/index.css";
 import "swiper/dist/css/swiper.css";
 import "./assets/css/myAnimation.less";
+import "./assets/css/ripple.less";
 
 //Swiper
 import VueAwesomeSwiper from "vue-awesome-swiper";
