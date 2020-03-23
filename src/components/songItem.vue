@@ -8,7 +8,7 @@
                     <p class="van-ellipsis">{{name}} {{alias}}</p>
                     <p class="van-ellipsis">{{artist}} - {{albumName}}</p>
                 </div>
-                <van-icon name="weapp-nav" class="Dot-more" @click.stop="dotMenu_call"/>
+                <van-icon name="weapp-nav" class="Dot-more" @touchstart.prevent="dotMenu_call"/>
             </div>
         
     </div>
