@@ -144,6 +144,7 @@ export default {
         background-color: #fff;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
+        min-height: 80px;
         .song-list-playall {
             width: 100%;
             display: flex;

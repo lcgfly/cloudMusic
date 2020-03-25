@@ -31,7 +31,6 @@ export default {
         getLoginStatus() {
             api.getLoginStatus()
                 .then(res => {
-                    console.log(res.data.code);
                     if (res.data.code == 200) {
                         localStorage.setItem("loginState", 1);
                         this.$store.commit("CHECK_LOGIN", 1);

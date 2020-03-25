@@ -15,7 +15,8 @@ import {
     playlist_recommend,
     artist_hot,
     artist_song,
-    artist_desc
+    artist_desc,
+    user_playlist
 } from "./config";
 
 export default {
@@ -164,6 +165,17 @@ export default {
         return axios.get(artist_desc,{
             params:{
                 id:id
+            }
+        })
+    },
+    /**
+     * 
+     * @param {Number} uid  用户的uid 
+     */
+    getUserPlaylist(uid){
+        return axios.get(user_playlist,{
+            params:{
+                uid:uid
             }
         })
     }

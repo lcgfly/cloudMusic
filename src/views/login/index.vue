@@ -33,10 +33,14 @@ export default {
             password: "",
             errorMessage: "",
             next: false,
-            loading: false
+            loading: false,
+            from:''
         };
     },
     mounted() {},
+    beforeRouteEnter(to,from,next){
+        next((vm)=>{vm.from = from.path})
+    },
     methods: {
         validator(val) {
             return /^\d{11}$/.test(val);
@@ -59,11 +63,11 @@ export default {
                 if (res.data.code == 200) {
                     localStorage.setItem('avatarUrl',res.data.profile.avatarUrl)    //登录成功，本地存储用户名，用户头像，登录状态
                     localStorage.setItem('nickname',res.data.profile.nickname)
+                    localStorage.setItem('mscUid',res.data.account.id)
                     localStorage.setItem('loginState',1)
                     this.CHECK_LOGIN(1);
                     this.loading = false;
-                    this.$router.push("/find");
-                    console.log(this.$store.state.LOGIN_STATE)
+                    this.$router.push(this.from);
                 } else {
                     this.errorMessage = "账号或密码错误";
                     this.loading = false;

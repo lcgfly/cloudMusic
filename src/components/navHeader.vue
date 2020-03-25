@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav class="navheader">
-            <van-icon name="wap-nav" class="menu-nav" size="0.4rem" @click="showPopup"/>
+            <van-icon name="wap-nav" class="menu-nav" size="0.4rem" @click="showPopup" />
             <ul class="list">
                 <li
                     v-for="(item,index) in navList"
@@ -12,16 +12,23 @@
             </ul>
         </nav>
         <van-popup v-model="show" position="left" :style="{width:'70vw',height:'100vh'}" round>
-            <div class="login-tip" v-if="!isLogin"> 
+            <div class="login-tip" v-if="!isLogin">
                 <p class="login-slogan">立即登录，尽享海量高品质音乐</p>
                 <van-button round type="info" color="#dd001b" to="/login">登录GoGoGo!</van-button>
             </div>
             <div class="login-user" v-if="isLogin">
-                <img :src="avatarUrl" alt="" class="avatar-user">
+                <img :src="avatarUrl" alt class="avatar" />
                 <span class="nickname">{{nickname}}</span>
             </div>
             <category :list="category"></category>
-            <van-button class="logout-btn" round type="default" size="large" v-if="isLogin" @click="logout">退出登录</van-button>
+            <van-button
+                class="logout-btn"
+                round
+                type="default"
+                size="large"
+                v-if="isLogin"
+                @click="logout"
+            >退出登录</van-button>
         </van-popup>
     </div>
 </template>
@@ -29,52 +36,52 @@
 import Bus from "../util/Bus";
 import category from "@/components/category";
 import api from "@/api";
-import { format } from 'url';
+import { format } from "url";
 
 export default {
     data() {
         return {
             navList: ["我的", "发现", "云村", "视频"],
             currentIndex: 1,
-            show:false,
-            category:[
+            show: false,
+            category: [
                 {
-                    name:'我的消息',
-                    path:'mymessage',
-                    icon:'smile-comment-o',
-                    color:'#F63515'
+                    name: "我的消息",
+                    path: "mymessage",
+                    icon: "smile-comment-o",
+                    color: "#F63515"
                 },
                 {
-                    name:'我的好友',
-                    path:'mypartner',
-                    icon:'friends-o',
-                    color:'#F63515'
+                    name: "我的好友",
+                    path: "mypartner",
+                    icon: "friends-o",
+                    color: "#F63515"
                 },
                 {
-                    name:'个人主页',
-                    path:'zone',
-                    icon:'wap-home-o',
-                    color:'#F63515'
+                    name: "个人主页",
+                    path: "zone",
+                    icon: "wap-home-o",
+                    color: "#F63515"
                 },
                 {
-                    name:'换肤',
-                    path:'skin',
-                    icon:'brush-o',
-                    color:'#F63515'
+                    name: "换肤",
+                    path: "skin",
+                    icon: "brush-o",
+                    color: "#F63515"
                 }
             ],
-            nickname:localStorage.getItem('nickname'),
-            avatarUrl:localStorage.getItem('avatarUrl')
-
+            nickname: localStorage.getItem("nickname"),
+            avatarUrl: localStorage.getItem("avatarUrl")
         };
     },
-    components:{
+    components: {
         category
     },
-    computed:{
-        isLogin(){  //防止页面刷新后vuex登录状态丢失
-            if(localStorage.getItem('loginState')==1){
-                this.$store.commit('CHECK_LOGIN',1)
+    computed: {
+        isLogin() {
+            //防止页面刷新后vuex登录状态丢失
+            if (localStorage.getItem("loginState") == 1) {
+                this.$store.commit("CHECK_LOGIN", 1);
             }
             return this.$store.state.LOGIN_STATE;
         }
@@ -82,42 +89,60 @@ export default {
     mounted() {
         this.init();
         Bus.$on("slideChange", this.deliverSlideIndex);
-
-
     },
     methods: {
-        deliverTabIndex(index) {  //点击对应导航栏时，更新轮播图(内容区)对应index
+        deliverTabIndex(index) {
+            //点击对应导航栏时，更新轮播图(内容区)对应index
             this.currentIndex = index;
             Bus.$emit("tabChange", index);
         },
-        deliverSlideIndex(index) {  //滑动时更新导航栏、路由
+        deliverSlideIndex(index) {
+            //滑动时更新导航栏、路由
             this.currentIndex = index;
-            var path = index==0?'/my':index==1?'/find':index==2?'village':index==3?'/vlog':0;
+            var path =
+                index == 0
+                    ? "/my"
+                    : index == 1
+                    ? "/find"
+                    : index == 2
+                    ? "village"
+                    : index == 3
+                    ? "/vlog"
+                    : 0;
             this.$router.push(path);
         },
-        init(){ //页面刷新时更新导航栏高亮位置
-        this.$nextTick(()=>{})
-            this.currentIndex=this.$route.path=='/my'?0:this.$route.path=='/find'?1:this.$route.path=='/village'?
-            2:this.$route.path=='/vlog'?3:0
+        init() {
+            //页面刷新时更新导航栏高亮位置
+            this.$nextTick(() => {});
+            this.currentIndex =
+                this.$route.path == "/my"
+                    ? 0
+                    : this.$route.path == "/find"
+                    ? 1
+                    : this.$route.path == "/village"
+                    ? 2
+                    : this.$route.path == "/vlog"
+                    ? 3
+                    : 0;
         },
-        showPopup(){
+        showPopup() {
             this.show = true;
         },
-        logout(){   //退出登录
-            api.logout().then((res)=>{
-                if(res.status==200){
-                    this.$store.commit('CHECK_LOGIN',0)
-                    localStorage.removeItem('loginState')
-                   // this.$router.go(0)
+        logout() {
+            //退出登录
+            api.logout().then(res => {
+                if (res.status == 200) {
+                    this.$store.commit("CHECK_LOGIN", 0);
+                    localStorage.removeItem("loginState");
+                    // this.$router.go(0)
                 }
-            })
-            
+            });
         }
     }
 };
 </script>
-<style lang="less" scoped>
-nav.navheader{
+<style lang="less" >
+nav.navheader {
     position: relative;
     padding: 0 10%;
     .list {
@@ -136,34 +161,37 @@ nav.navheader{
             }
         }
     }
-    .menu-nav{
+    .menu-nav {
         position: absolute;
         top: 50%;
         left: 15px;
-        transform: translate(0,-50%);
+        transform: translate(0, -50%);
     }
 }
-.login-tip{
+.login-tip {
     overflow: hidden;
 }
-.login-slogan{
+.login-slogan {
     font-size: 12px;
     margin: 15px;
 }
-.login-user{
+.login-user {
     margin: 15px;
-    text-align: left
+    text-align: left;
+    .avatar {
+        width: 70px;
+        height: 70px;
+        display: inline-block;
+        border-radius: 50%;
+        background-color: #ccc;
+    }
+    .nickname {
+        margin-left: 8px;
+    }
 }
-.avatar-user{
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-}
-.nickname{
-    margin-left: 8px;
-}
-.logout-btn{
-    position: absolute;
+
+.logout-btn {
+    position: absolute !important;
     left: 0;
     bottom: 5px;
 }
