@@ -2,7 +2,7 @@
     <div>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
             <van-swipe-item v-for="(item,index) in list" :key="index">
-                <img :src="item.pic" :alt="item.typeTitle" :data-song-id="item.song?item.song.id:0">
+                <img :src="item.pic" :alt="item.typeTitle" :data-song-id="item.song?item.song.id:0" />
             </van-swipe-item>
         </van-swipe>
     </div>
@@ -10,24 +10,26 @@
 <script>
 export default {
     data() {
-        return {
-        };
+        return {};
     },
-    props:{
-        list:Array
+    props: {
+        list: Array
     }
 };
 </script>
 <style lang="less" scoped>
-.my-swipe .van-swipe-item {
-  color: #fff;
-  font-size: 20px;
-  line-height: 150px;
-  text-align: center;
-  padding: 0 10px;
-  img{
-      width: 100%;
-      border-radius: 8px;
-  }
+.my-swipe {
+    transform: translateZ(0);
+    .van-swipe-item {
+        color: #fff;
+        font-size: 20px;
+        line-height: 1.5;
+        text-align: center;
+        padding: 0 10px;
+        img {
+            width: 100%;
+            border-radius: 8px;
+        }
+    }
 }
 </style>
