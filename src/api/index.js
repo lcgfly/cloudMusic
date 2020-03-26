@@ -16,7 +16,8 @@ import {
     artist_hot,
     artist_song,
     artist_desc,
-    user_playlist
+    user_playlist,
+    user_record
 } from "./config";
 
 export default {
@@ -176,6 +177,19 @@ export default {
         return axios.get(user_playlist,{
             params:{
                 uid:uid
+            }
+        })
+    },
+    /**
+     * 
+     * @param {Number} uid  用户uid 
+     * @param {Number} type 1返回week数据，0返回all数据
+     */
+    getUserRecord(uid,type=1){
+        return axios.get(user_record,{
+            params:{
+                uid:uid,
+                type:type
             }
         })
     }

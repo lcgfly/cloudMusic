@@ -8,7 +8,7 @@
                     <p>{{artist}}</p>
                 </div>
             </div>
-           <div class="dot-line" @click="insert">
+           <div class="dot-line" @click.stop="insert">
             <van-icon name="certificate" /> 
             <div class="insert">下一首播放</div>
             </div> 

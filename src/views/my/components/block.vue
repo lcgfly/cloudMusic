@@ -6,7 +6,7 @@
         <div class="s-block">
             <div>私人FM</div>
         </div>
-        <div class="s-block">
+        <div class="s-block" @click="toRecord">
             <div>播放记录</div>
         </div>
     </div>
@@ -34,6 +34,11 @@ export default {
                 this.$router.push({name:'detailPage',params:{id:this.id}});
             }
             
+        },
+        toRecord(){
+            if(this.check()){
+                this.$router.push({path:'/record'});
+            }
         }
     }
 };

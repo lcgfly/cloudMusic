@@ -13,6 +13,7 @@ const detailPage = ()=> import('@/views/detailPage')
 const toplist = ()=> import('@/views/toplist')
 const artist = ()=> import('@/views/artist')
 const arDetail = ()=> import('@/views/artist/components/detail')
+const record = ()=> import('@/views/my/components/record')
 Vue.use(VueRouter);
 
 const routes = [
@@ -65,6 +66,10 @@ const routes = [
     name:'arDetail',
     path:'/artist/detail/:id',
     component:arDetail
+  },
+  {
+    path:'/record',
+    component:record
   }
 ];
 
