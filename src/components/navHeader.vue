@@ -2,6 +2,7 @@
     <div>
         <nav class="navheader">
             <van-icon name="wap-nav" class="menu-nav" size="0.4rem" @click="showPopup" />
+            <router-link to="/search"><van-icon name="search" class="menu-search" size="0.4rem"  /></router-link>
             <ul class="list">
                 <li
                     v-for="(item,index) in navList"
@@ -161,11 +162,16 @@ nav.navheader {
             }
         }
     }
-    .menu-nav {
+    .menu-nav,.menu-search {
         position: absolute;
         top: 50%;
-        left: 15px;
         transform: translate(0, -50%);
+    }
+    .menu-nav{
+        left: 15px;
+    }
+    .menu-search{
+        right: 15px;
     }
 }
 .login-tip {

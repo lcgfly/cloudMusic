@@ -22,7 +22,7 @@ Vue.filter('Playcount',Playcount);
 //全局样式
 import "./assets/css/deviceAdapter/index.less";
 import "./assets/css/reset.less";
-import "vant/lib/index.css";
+// import "vant/lib/index.css";
 import "swiper/dist/css/swiper.css";
 import "./assets/css/myAnimation.less";
 import "./assets/css/ripple.less";
@@ -30,7 +30,7 @@ import "./assets/css/ripple.less";
 //Swiper
 import VueAwesomeSwiper from "vue-awesome-swiper";
 //vant组件
-import { Icon, Popup, Swipe, SwipeItem, Button, Field, List, Divider, Slider,Toast,Tab,Tabs,Loading} from "vant";
+import { Icon, Popup, Swipe, SwipeItem, Button, Field, List, Divider, Slider,Toast,Tab,Tabs,Loading,Search} from "vant";
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(Icon);
@@ -43,6 +43,7 @@ Vue.use(Slider);
 Vue.use(Toast);
 Vue.use(Tab).use(Tabs);
 Vue.use(Loading);
+Vue.use(Search);
 new Vue({
   router,
   store,

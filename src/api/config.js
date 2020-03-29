@@ -18,3 +18,4 @@ export const artist_song =api+'/artists'    //获取歌手热门歌曲
 export const artist_desc = api+'/artist/desc'   //获取歌手描述
 export const user_playlist = api+ '/user/playlist'  //获取用户歌单
 export const user_record = api+'/user/record'   //最近播放记录
+export const search_suggest = api + '/search/suggest'   //搜索建议

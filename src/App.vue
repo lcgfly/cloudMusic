@@ -4,7 +4,7 @@
         <keep-alive>
             <swiper v-if="control"></swiper>
         </keep-alive>
-        <keep-alive :max="10">
+        <keep-alive :max="10" exclude="Search">
             <router-view v-if="!control"></router-view>
         </keep-alive>
         <!-- 播放组件 -->

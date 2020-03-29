@@ -17,7 +17,8 @@ import {
     artist_song,
     artist_desc,
     user_playlist,
-    user_record
+    user_record,
+    search_suggest
 } from "./config";
 
 export default {
@@ -189,6 +190,19 @@ export default {
         return axios.get(user_record,{
             params:{
                 uid:uid,
+                type:type
+            }
+        })
+    },
+    /**
+     * 
+     * @param {String} keywords 关键词
+     * @param {String} type 移动端
+     */
+    getSearchSuggest(keywords,type='mobile'){
+        return axios.get(search_suggest,{
+            params:{
+                keywords:keywords,
                 type:type
             }
         })

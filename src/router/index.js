@@ -14,6 +14,7 @@ const toplist = ()=> import('@/views/toplist')
 const artist = ()=> import('@/views/artist')
 const arDetail = ()=> import('@/views/artist/components/detail')
 const record = ()=> import('@/views/my/components/record')
+const search = ()=> import('@/views/search')
 Vue.use(VueRouter);
 
 const routes = [
@@ -70,6 +71,10 @@ const routes = [
   {
     path:'/record',
     component:record
+  },
+  {
+    path:'/search',
+    component:search
   }
 ];
 
