@@ -10,8 +10,8 @@
                 <van-icon name="delete" @click="deleteAll"/>
             </div>
             <div class="menu-bd">
-                <div class="menu-item" v-for="(item,index) in audioList" :key="index">
-                    <div class="lt van-ellipsis" @click="play(index)">
+                <div class="menu-item ripple" v-for="(item,index) in audioList" :key="index">
+                    <div class="lt van-ellipsis" @touchstart.prevent="play(index)">
                         <span>{{item.name}}</span>-<span>{{ item.artists
                         ? item.artists[0].name
                         : item.ar
