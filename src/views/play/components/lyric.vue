@@ -145,6 +145,9 @@ export default {
       top: 50%;
       left: 50%;
       transform: translate(-50%,-50%);
+      min-width: 240px;
+      min-height: 240px;
+      background: linear-gradient(to right, #e8cbc0, #636fa4);
     }
 }
 // .record:after {

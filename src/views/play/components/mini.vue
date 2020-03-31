@@ -2,7 +2,7 @@
     <div class="mini-page" @click="toFullScreen" @touchmove.prevent>
         <div class="mini-wrapper ripple">
             <div class="mini-left">
-                <img :src="picUrl" />
+                <img :src="picUrl" alt/>
                 <div>
                     <p>{{name}}</p>
                     <p>{{artistsFn}}</p>
@@ -83,6 +83,7 @@ export default {
                 width: 50px;
                 height: 50px;
                 border-radius: 50%;
+                background: linear-gradient(to right, #e8cbc0, #636fa4);
             }
             &>div{
               margin-left: 5px;

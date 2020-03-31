@@ -91,6 +91,8 @@ export default {
     &>img{
         width: 50px;
         height: auto;
+        min-height: 50px;
+        background: linear-gradient(to right, #e8cbc0, #636fa4);
     }
 }
 .dot-line{
