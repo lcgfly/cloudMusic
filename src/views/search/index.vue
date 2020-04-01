@@ -9,15 +9,12 @@
                 @input="onInput"
                 @clear="onClear"
                 @search="onSearch"
-                :show-action="true"
             >
-                <template v-slot:action>
-                    <div @click="onSearch">搜索</div>
-                </template>
             </van-search>
             <suggest v-if="suggestShow" :list="suggestInfo" @toSearch="onSearch"></suggest>
         </div>
         <contents v-if="contentShow"></contents>
+        <history v-if="!contentShow" :list="history" @toSearch="onSearch" @_clearHistory="clearHistory"></history>
     </div>
 </template>
 
@@ -27,7 +24,7 @@ import Bus from "@/util/Bus.js";
 import defaultNav from "@/components/defaultNav";
 import suggest from "./components/suggest";
 import contents from "./components/contents";
-import { setTimeout } from 'timers';
+import history from "./components/history";
 export default {
     name: "Search",
     data() {
@@ -36,13 +33,15 @@ export default {
             timer: null,
             suggestInfo: [],    
             suggestShow:false,  //控制搜索建议是否展示
-            contentShow:false   //控制搜索结果是否展示
+            contentShow:false,   //控制搜索结果是否展示
+            history:[]          //保存历史搜索记录
         };
     },
     components: {
         defaultNav,
         suggest,
-        contents
+        contents,
+        history
     },
     watch:{
         value:function(val,oldVal){
@@ -56,6 +55,11 @@ export default {
                }
                 
         }
+    },
+    activated(){
+        this.history =localStorage.getItem('historyKeywords')
+        ? localStorage.getItem('historyKeywords').split(',')
+        :[]
     },
     deactivated(){
         // this.value = ''
@@ -84,16 +88,35 @@ export default {
                 }
             })
         },
-        onSearch(keywords) {
-            //点击搜索时的处理函数。同时通知子组件更新keywords
+        onSearch(keywords) {    //点击搜索时的处理函数。同时通知子组件更新keywords
             this.value = keywords
             this.contentShow = true
             this.suggestShow = false
+            this.saveKeywords(keywords)
             let timer = setTimeout(()=>{
                  Bus.$emit('_search',keywords)
                  clearTimeout(timer)
              },20)
            
+        },
+        saveKeywords(keywords){
+            let history = this.history
+            if(history.indexOf(keywords) != -1){
+                history.unshift(history.splice(history.indexOf(keywords),1)[0])
+            }
+            else if(history.length >= 10){
+                history.pop()
+                history.unshift(keywords)
+            }
+            else{
+                history.unshift(keywords)
+            }
+            this.history = history
+            localStorage.setItem('historyKeywords',history)
+        },
+        clearHistory(){
+            this.history = []
+            localStorage.removeItem('historyKeywords')
         }
     }
 };
@@ -114,6 +137,25 @@ export default {
     z-index: 5;
     ul {
         background-color: #f7f8fa;
+    }
+}
+.search-history{
+    margin: 15px;
+    text-align: left;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    &>span{
+        display: inline-block;
+        padding: 5px;
+        margin: 10px;
+        border-radius: 10px;
+        color: #f7f8fa;
+    }
+    .clear{
+        display: block;
+        border-radius: 10px;
+        margin: 20 15px;
+        background: #f7f8fa;
     }
 }
 </style>
