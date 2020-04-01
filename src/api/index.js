@@ -18,7 +18,8 @@ import {
     artist_desc,
     user_playlist,
     user_record,
-    search_suggest
+    search_suggest,
+    search
 } from "./config";
 
 export default {
@@ -204,6 +205,23 @@ export default {
             params:{
                 keywords:keywords,
                 type:type
+            }
+        })
+    },
+    /**
+     * 
+     * @param {String} keywords 关键词 
+     * @param {*} type 查询类型 单曲1 歌手100 
+     * @param {*} limit 取出数量
+     * @param {*} offset 偏移量
+     */
+    getSearch(keywords,type,limit=30,offset=0){
+        return axios.get(search,{
+            params:{
+                keywords:keywords,
+                type:type,
+                limit:limit,
+                offset:offset*30
             }
         })
     }

@@ -62,7 +62,6 @@ export default {
             api.getUserPlaylist(uid).then(res => {
                 this.loaded = true;
                 res = res.data;
-                console.log(res);
                 if (res.code == 200) {
                     let list = res.playlist;
                     for (let i = 0; i < list.length; i++) {

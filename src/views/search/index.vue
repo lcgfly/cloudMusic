@@ -8,59 +8,92 @@
                 placeholder="请输入搜索关键词"
                 @input="onInput"
                 @clear="onClear"
+                @search="onSearch"
                 :show-action="true"
             >
                 <template v-slot:action>
-                    <div>搜索</div>
+                    <div @click="onSearch">搜索</div>
                 </template>
             </van-search>
-            <suggest v-if="!search_empty" :list="suggestInfo"></suggest>
+            <suggest v-if="suggestShow" :list="suggestInfo" @toSearch="onSearch"></suggest>
         </div>
+        <contents v-if="contentShow"></contents>
     </div>
 </template>
 
 <script>
 import api from "@/api";
+import Bus from "@/util/Bus.js";
 import defaultNav from "@/components/defaultNav";
 import suggest from "./components/suggest";
+import contents from "./components/contents";
+import { setTimeout } from 'timers';
 export default {
     name: "Search",
     data() {
         return {
             value: "",
             timer: null,
-            suggestInfo: []
+            suggestInfo: [],    
+            suggestShow:false,  //控制搜索建议是否展示
+            contentShow:false   //控制搜索结果是否展示
         };
     },
     components: {
         defaultNav,
-        suggest
+        suggest,
+        contents
     },
-    computed: {
-        search_empty() {
-            return this.value.length == 0;
+    watch:{
+        value:function(val,oldVal){
+            // if(val.length > 0){
+            //     this.suggestShow = true
+            // }
+               if(val.length <= 0){
+                   this.suggestShow = false
+                   this.contentShow = false
+                   this.onClear()
+               }
+                
         }
     },
+    deactivated(){
+        // this.value = ''
+        // this.contentShow = false
+        this.suggestShow = false
+    },
     methods: {
+        //防抖
         onInput(value) {
             clearTimeout(this.timer);
             this.timer = setTimeout(() => {
                 if(this.value!=''){
                     this.searchSuggest()
                 }
-            }, 500);
+            }, 300);
         },
-        onSearch() {},
         onClear(){
-            this.suggestInfo = []
+            this.suggestInfo = []   //解决出现新提示时会有前一次提示的一闪而过的问题
         },
         searchSuggest(){
             api.getSearchSuggest(this.value).then((res)=>{
                 res =res.data
                 if(res.code == 200){
                     this.suggestInfo = res.result.allMatch?res.result.allMatch:[]
+                    this.suggestShow = true
                 }
             })
+        },
+        onSearch(keywords) {
+            //点击搜索时的处理函数。同时通知子组件更新keywords
+            this.value = keywords
+            this.contentShow = true
+            this.suggestShow = false
+            let timer = setTimeout(()=>{
+                 Bus.$emit('_search',keywords)
+                 clearTimeout(timer)
+             },20)
+           
         }
     }
 };
@@ -78,6 +111,7 @@ export default {
     padding: 0 15px;
     text-align: left;
     line-height: 1.5;
+    z-index: 5;
     ul {
         background-color: #f7f8fa;
     }
