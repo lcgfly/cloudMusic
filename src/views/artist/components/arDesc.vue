@@ -28,8 +28,14 @@ export default {
         id: Number,
         name: String
     },
-    created() {
-        this.artistDesc(this.id);
+    watch:{
+        id:{
+            handler:function(val,oldVal){
+                this.artistDesc(this.id);
+            },
+            immediate:true
+            
+        }
     },
     mounted() {
         Bus.$on("descShow", this.descShow);
