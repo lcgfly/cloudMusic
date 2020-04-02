@@ -20,17 +20,20 @@ export default {
         return{
             loaded:false,
             show:true,
-            list:[]
+            list:[],
+            limiit:30
         }
     },
     props:{
         tag:String,
         nowIndex:Number,
-        initialIndex:Number
+        initialIndex:Number,
+        isBottom:Boolean
     },
     watch:{
         nowIndex:{
             handler:function(val,oldVal){
+                 document.documentElement.scrollTop = 0
                 if(this.nowIndex==this.initialIndex&&!this.loaded){
                     if(this.tag=='精品'){
                         this.reqDataEx()
@@ -40,12 +43,21 @@ export default {
             }
             },
             immediate:true
+        },
+        isBottom:function(val,oldVal){
+            if(val && this.nowIndex==this.initialIndex){
+                console.log(this.tag+'加载中')
+                this.$emit('loadover')
+                this.limiit+=10
+                this.reqData()
+            }
         }
     },
-    mounted(){},
+    deactivated(){
+    },
     methods:{
         reqData(){
-            api.getPlaylistTop(this.tag).then((res)=>{
+            api.getPlaylistTop(this.tag,this.limiit).then((res)=>{
                 var res = res.data
                 if(res.code == 200){
                     this.list = res.playlists

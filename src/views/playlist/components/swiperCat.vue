@@ -3,7 +3,7 @@
         <swiper :options="swiperOption" ref="mySwiper">
             <swiper-slide v-for="(item, index) in list" :key="index">
                 <keep-alive>
-                    <component :is="name" :tag="item" :initialIndex="index" :nowIndex="nowIndex"></component>
+                    <component :is="name" :tag="item" :initialIndex="index" :nowIndex="nowIndex" :isBottom="isBottom" @loadover="isBottom=false"></component>
                 </keep-alive>
             </swiper-slide>
         </swiper>
@@ -25,7 +25,9 @@ export default {
                         this.slideChange()
                     }
                 }
-            }
+            },
+            isBottom:false,
+            flag:true
         };
     },
     props:{
@@ -41,6 +43,7 @@ export default {
     },
     mounted(){
         Bus.$on('tab',this.tabChange)
+        window.addEventListener('scroll',this.onLoad)
     },
     methods:{
         tabChange(index){
@@ -50,6 +53,21 @@ export default {
         slideChange(){
             this.nowIndex = this.swiper.activeIndex
             Bus.$emit('slide',this.swiper.activeIndex)
+        },
+        onLoad(){
+            console.log(11)
+            if(!this.flag) return
+            this.flag = false
+            console.log('ing')
+            let scrollHeight = document.getElementsByClassName('pt-wrapper')[this.nowIndex].scrollHeight
+            let scrollTop = document.getElementsByClassName('swiper-slide-active')[0].scrollTop
+            let clientHeight = document.documentElement.clientHeight
+            if(Math.ceil(clientHeight + scrollTop)+300 >= scrollHeight){
+                this.isBottom = true
+            }
+            setTimeout(() => {
+                this.flag = true
+            }, 500);
         }
     }
 };

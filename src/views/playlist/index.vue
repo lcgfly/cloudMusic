@@ -65,4 +65,8 @@ export default {
 .main{
     margin-top: 85px;
 }
+.swiper-slide{
+    max-height: 100vh;
+    overflow: scroll;
+}
 </style>
