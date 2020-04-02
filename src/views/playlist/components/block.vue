@@ -31,6 +31,7 @@ export default {
     watch:{
         nowIndex:{
             handler:function(val,oldVal){
+                 document.documentElement.scrollTop = 0
                 if(this.nowIndex==this.initialIndex&&!this.loaded){
                     if(this.tag=='精品'){
                         this.reqDataEx()
