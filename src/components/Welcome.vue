@@ -1,6 +1,10 @@
 <template>
     <div class="welcome">
-        <h1>creazy</h1>
+        <h1>cloud</h1>
+        <p>
+            本应用仅供学习交流使用
+            请勿用于商业及非法用途
+        </p>
     </div>
 </template>
 <script>
@@ -52,7 +56,7 @@ export default {
 div.welcome {
     width: 100vw;
     height: 100vh;
-    background-image: linear-gradient(45deg, #ff69b4, #42b983);
+    position: relative;
 }
 
 h1 {
@@ -68,6 +72,15 @@ h1 {
     width: 100%;
     animation: move linear 2000ms infinite alternate;
 }
+p{
+    color: hsla(0,100%,0%,.6);
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    
+}
 
 @keyframes move {
     0% {
@@ -77,7 +90,6 @@ h1 {
             -3px 3px 0 hsla(180, 100%, 50%, 1),
             -2px 2px 0 hsla(180, 100%, 50%, 1),
             -1px 1px 0 hsla(180, 100%, 50%, 1);
-        filter: blur(0px);
     }
     25% {
         text-shadow: -4px -4px 0 hsla(180, 100%, 50%, 1),
@@ -86,7 +98,6 @@ h1 {
             -1px -1px 0 hsla(180, 100%, 50%, 1), 4px 4px 0 hsla(0, 100%, 50%, 1),
             3px 3px 0 hsla(0, 100%, 50%, 1), 2px 2px 0 hsla(0, 100%, 50%, 1),
             1px 1px 0 hsla(0, 100%, 50%, 1);
-        filter: blur(1px);
     }
     50% {
         text-shadow: -4px 4px 0 hsla(0, 100%, 50%, 1),
@@ -95,7 +106,6 @@ h1 {
             3px -3px 0 hsla(180, 100%, 50%, 1),
             2px -2px 0 hsla(180, 100%, 50%, 1),
             1px -1px 0 hsla(180, 100%, 50%, 1);
-        filter: blur(2px);
     }
     75% {
         text-shadow: 4px 4px 0 hsla(180, 100%, 50%, 1),
@@ -103,7 +113,6 @@ h1 {
             1px 1px 0 hsla(180, 100%, 50%, 1), -4px -4px 0 hsla(0, 100%, 50%, 1),
             -3px -3px 0 hsla(0, 100%, 50%, 1), -2px -2px 0 hsla(0, 100%, 50%, 1),
             -1px -1px 0 hsla(0, 100%, 50%, 1);
-        filter: blur(3px);
     }
     100% {
         text-shadow: 4px -4px 0 hsla(0, 100%, 50%, 1),
@@ -112,7 +121,6 @@ h1 {
             -3px 3px 0 hsla(180, 100%, 50%, 1),
             -2px 2px 0 hsla(180, 100%, 50%, 1),
             -1px 1px 0 hsla(180, 100%, 50%, 1);
-        filter: blur(5px);
     }
 }
 </style>
