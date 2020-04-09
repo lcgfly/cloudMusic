@@ -4,12 +4,13 @@
         <keep-alive>
             <swiper v-if="control"></swiper>
         </keep-alive>
+        <transition name="slider">
         <keep-alive :max="10">
             <router-view v-if="!control"></router-view>
         </keep-alive>
+        </transition>
         <!-- 播放组件 -->
             <player v-show="!AUDIOLIST_EMPTY"></player>
-        
     </div>
 </template>
 <script>

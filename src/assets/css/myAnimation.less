@@ -1,0 +1,16 @@
+.slider-enter-active,.slider-leave-active{
+    transition:all .5s ease-out;
+}
+.slider-enter,.slider-leave-to{
+    transform: translate3d(0,100%,0);
+    opacity:0;
+}
+
+.max-enter-active,.max-leave-active{
+    transform-origin: center;
+    transition: all .3s linear;
+}
+.max-enter,.max-leave-to{
+    transform: scale(3);
+    opacity: 0;
+}

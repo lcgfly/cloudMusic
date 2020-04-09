@@ -1,6 +1,7 @@
 <template>
     <div class="audio-page">
         <div class="bg" v-show="fullScreen" :style="{backgroundImage:`url(${picUrl})`}"></div>
+        <transition name="max">
         <div class="full" v-show="fullScreen">
             <navbar :name="name" :artists="artists"></navbar>
             <lyric-view :lyricArray="lyricArray" :lyricIndex="lyricIndex" :picUrl="picUrl"></lyric-view>
@@ -12,6 +13,8 @@
                 @menuListShow="menuList"
             ></controller>
         </div>
+        </transition>
+        <transition name="max">
         <mini
             v-show="!fullScreen"
             :name="name"
@@ -20,6 +23,7 @@
             @toggle="toggle"
             @menuListShow="menuList"
         ></mini>
+        </transition>
         <popup @play="menuPlay" @deleteAll="deleteAll"></popup>
         <audio ref="audio" :src="audioSrc" autoplay muted @ended="ended"></audio>
     </div>
