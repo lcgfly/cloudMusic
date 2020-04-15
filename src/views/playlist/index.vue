@@ -65,10 +65,11 @@ export default {
 .main{
     margin-top: 85px;
 }
+// 解决swiper切换不同标签时由于内容不一样造成的高度无法自适应问题
 .swiper-slide{
     height:1px
 }    
-.swiper-slide-active { 
+.swiper-slide-active {
     height:auto
 }
 </style>
