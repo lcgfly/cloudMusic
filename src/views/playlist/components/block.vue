@@ -1,6 +1,6 @@
 <template>
 <div>
-  <van-loading size="24px" color="#42b983" vertical v-show="show">加载中...</van-loading>
+  <van-loading size="36px" color="#42b983" vertical v-show="show">加载中...</van-loading>
   <div class="pt-wrapper">
       <div class="pt-item" v-for="(item,index) in list" :key="index" @click="toDetailPage(item.id)">
           <div class="pt-cover">
@@ -10,6 +10,7 @@
           <p class="pt-description">{{item.name}}</p>
       </div>
   </div>
+  <van-loading size="36px" color="#42b983" vertical v-show="!show">玩命加载中...</van-loading>
 </div>
 </template>
 
@@ -21,7 +22,7 @@ export default {
             loaded:false,
             show:true,
             list:[],
-            limiit:30
+            limit:30
         }
     },
     props:{
@@ -45,11 +46,18 @@ export default {
             immediate:true
         },
         isBottom:function(val,oldVal){
-            if(val && this.nowIndex==this.initialIndex){
-                console.log(this.tag+'加载中')
+            if(val && this.nowIndex==this.initialIndex && this.tag == '精品'){
+                this.show = true
+                this.reqDataEx_offset()
                 this.$emit('loadover')
-                this.limiit+=10
+                return
+            }
+            if(val && this.nowIndex==this.initialIndex){
+                this.show = true
+                console.log(this.tag+'加载中')
+                this.limit+=12
                 this.reqData()
+                this.$emit('loadover')
             }
         }
     },
@@ -57,7 +65,7 @@ export default {
     },
     methods:{
         reqData(){
-            api.getPlaylistTop(this.tag,this.limiit).then((res)=>{
+            api.getPlaylistTop(this.tag,this.limit).then((res)=>{
                 var res = res.data
                 if(res.code == 200){
                     this.list = res.playlists
@@ -75,6 +83,18 @@ export default {
                     this.loaded = true
                 }
             })
+        },
+        reqDataEx_offset(){
+            let updateTime = this.list[this.list.length-1].updateTime
+            let limit = 9
+             api.playlist_highquality(updateTime,limit).then(res=>{
+                 res = res.data
+                 if(res.code == 200){
+                    this.list = this.list.concat(res.playlists)
+                    this.show = false
+                    this.loaded = true
+                }
+             })
         },
         toDetailPage(id){
             this.$router.push({name:'detailPage',params:{id:id}})

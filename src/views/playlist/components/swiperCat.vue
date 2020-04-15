@@ -20,6 +20,7 @@ export default {
             name: "block",
             nowIndex:0,
             swiperOption:{
+                // autoHeight:true,
                 on: {
                     slideChange: () => {
                         this.slideChange()
@@ -55,17 +56,15 @@ export default {
             Bus.$emit('slide',this.swiper.activeIndex)
         },
         onLoad(){
-            console.log(11)
             if(!this.flag) return
             this.flag = false
-            console.log('ing')
-            let scrollHeight = document.getElementsByClassName('pt-wrapper')[this.nowIndex].scrollHeight
-            let scrollTop = document.getElementsByClassName('swiper-slide-active')[0].scrollTop
+            setTimeout(() => {
+            let scrollHeight = document.documentElement.scrollHeight
+            let scrollTop = document.documentElement.scrollTop
             let clientHeight = document.documentElement.clientHeight
-            if(Math.ceil(clientHeight + scrollTop)+300 >= scrollHeight){
+            if(Math.ceil(clientHeight + scrollTop) >= scrollHeight){
                 this.isBottom = true
             }
-            setTimeout(() => {
                 this.flag = true
             }, 500);
         }
