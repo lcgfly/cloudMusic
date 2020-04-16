@@ -44,7 +44,12 @@ export default {
     },
     mounted(){
         Bus.$on('tab',this.tabChange)
+    },
+    activated(){
         window.addEventListener('scroll',this.onLoad)
+    },
+    deactivated(){
+        window.removeEventListener('scroll',this.onLoad)
     },
     methods:{
         tabChange(index){
@@ -62,7 +67,7 @@ export default {
             let scrollHeight = document.documentElement.scrollHeight
             let scrollTop = document.documentElement.scrollTop
             let clientHeight = document.documentElement.clientHeight
-            if(Math.ceil(clientHeight + scrollTop) >= scrollHeight){
+            if(Math.ceil(clientHeight + scrollTop)+56 >= scrollHeight){
                 this.isBottom = true
             }
                 this.flag = true

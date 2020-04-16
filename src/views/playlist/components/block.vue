@@ -47,13 +47,11 @@ export default {
         },
         isBottom:function(val,oldVal){
             if(val && this.nowIndex==this.initialIndex && this.tag == '精品'){
-                this.show = true
                 this.reqDataEx_offset()
                 this.$emit('loadover')
                 return
             }
             if(val && this.nowIndex==this.initialIndex){
-                this.show = true
                 console.log(this.tag+'加载中')
                 this.limit+=12
                 this.reqData()
