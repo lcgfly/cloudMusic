@@ -25,7 +25,7 @@
         ></mini>
         </transition>
         <popup @play="menuPlay" @deleteAll="deleteAll"></popup>
-        <audio ref="audio" :src="audioSrc" autoplay muted @ended="ended"></audio>
+        <audio ref="audio" :src="audioSrc" autoplay @ended="ended"></audio>
     </div>
 </template>
 
@@ -109,6 +109,12 @@ export default {
         ...mapMutations(["SET_AUDIO_INDEX","AUDIOLIST_CLEAR",'PLAYING_TOGGLE']),
         getLyric(id) {
             api.getLyric(id).then(res => {
+                if(res.data.nolyric){
+                 this.lyricArray.push({
+                     lyric: '纯音乐，敬请欣赏'
+                 })   
+                 return
+                }
                 var lyric = res.data.lrc.lyric; //[mm:ss.ms]xxxx 格式的字符串
                 this.lyricToObj(lyric);
             });

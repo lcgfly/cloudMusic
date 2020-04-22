@@ -73,7 +73,7 @@ export default {
                 if(res.code == 200){
                     this.recList = res.recommend
                 }
-            }))
+            })).catch(e=>e)
         }
     }
 };
