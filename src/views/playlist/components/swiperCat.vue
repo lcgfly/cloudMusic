@@ -67,7 +67,7 @@ export default {
             let scrollHeight = document.documentElement.scrollHeight
             let scrollTop = document.documentElement.scrollTop
             let clientHeight = document.documentElement.clientHeight
-            if(Math.ceil(clientHeight + scrollTop)+56 >= scrollHeight){
+            if(Math.ceil(clientHeight + scrollTop)+62 >= scrollHeight){
                 this.isBottom = true
             }
                 this.flag = true
