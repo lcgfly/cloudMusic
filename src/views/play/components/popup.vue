@@ -19,7 +19,7 @@
                         : ''}}</span>
                     </div>
                     <div class="rt">
-                        <van-icon name="cross" @click="_deleteOne(index)"/>
+                        <van-icon name="cross" @click.stop="_deleteOne(index)"/>
                     </div>
                 </div>
             </div>
@@ -102,5 +102,9 @@ export default {
             color: hsla(0, 0%, 0%, 0.6);
         }
     }
+    .van-icon{
+        z-index: 10;
+    }
 }
+
 </style>
