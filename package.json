@@ -12,7 +12,7 @@
     "apicache": "^1.5.2",
     "axios": "^0.19.1",
     "core-js": "^3.4.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "pac-proxy-agent": "^3.0.1",
     "postcss-pxtorem": "^4.0.1",
     "request": "^2.88.0",
